@@ -36,8 +36,7 @@ namespace TicketSYS
             nudAdultTktPrice.Controls.RemoveAt(0);
 
             Event.CboEvent_LoadEvents(cboEvent);
-            Event.Event_DateTimePickerProperies(dtpFromTime);
-            Event.Event_DateTimePickerProperies(dtpToTime);
+            Event.Event_DateTimePickerProperies(dtpDate, dtpTime);
         }
 
         private void frmUpdateEvent_FormClosed(object sender, FormClosedEventArgs e)
@@ -75,16 +74,6 @@ namespace TicketSYS
                 Event.FillEventDetails(txtEventID, txtDescription, dtpDate, dtpTime, nudAvailTix, nudChildTktPrice, nudAdultTktPrice);
                 Event.Venue.FillVenueDetails(txtVenueID, txtVdVenue, txtStreet1, txtStreet2, txtCity, txtEircode, txtCounty, txtMaxCap, txtContact, txtPhone, txtFee);
             }
-        }
-
-        private void btnUpdateEvent_Click(object sender, EventArgs e)
-        {
-            // Add comparison for date
-        }
-
-        private void textBox3_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

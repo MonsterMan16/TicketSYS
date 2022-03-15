@@ -141,9 +141,9 @@ namespace TicketSYS
             this.grpEventDetails.Controls.Add(this.lblVenue);
             this.grpEventDetails.Controls.Add(this.txtDesc);
             this.grpEventDetails.Location = new System.Drawing.Point(67, 86);
-            this.grpEventDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpEventDetails.Margin = new System.Windows.Forms.Padding(4);
             this.grpEventDetails.Name = "grpEventDetails";
-            this.grpEventDetails.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpEventDetails.Padding = new System.Windows.Forms.Padding(4);
             this.grpEventDetails.Size = new System.Drawing.Size(1079, 1110);
             this.grpEventDetails.TabIndex = 25;
             this.grpEventDetails.TabStop = false;
@@ -154,7 +154,7 @@ namespace TicketSYS
             this.dtpTime.CustomFormat = "HH:mm";
             this.dtpTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
             this.dtpTime.Location = new System.Drawing.Point(449, 654);
-            this.dtpTime.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpTime.Margin = new System.Windows.Forms.Padding(4);
             this.dtpTime.MinDate = new System.DateTime(2021, 12, 17, 0, 0, 0, 0);
             this.dtpTime.Name = "dtpTime";
             this.dtpTime.Size = new System.Drawing.Size(240, 55);
@@ -165,7 +165,7 @@ namespace TicketSYS
             // 
             this.dtpDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpDate.Location = new System.Drawing.Point(449, 555);
-            this.dtpDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpDate.Margin = new System.Windows.Forms.Padding(4);
             this.dtpDate.MaxDate = new System.DateTime(2026, 12, 18, 7, 26, 12, 407);
             this.dtpDate.MinDate = new System.DateTime(2021, 12, 18, 7, 26, 12, 407);
             this.dtpDate.Name = "dtpDate";
@@ -182,7 +182,7 @@ namespace TicketSYS
             0,
             65536});
             this.nudAdultTktPrice.Location = new System.Drawing.Point(449, 925);
-            this.nudAdultTktPrice.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nudAdultTktPrice.Margin = new System.Windows.Forms.Padding(4);
             this.nudAdultTktPrice.Maximum = new decimal(new int[] {
             10000,
             0,
@@ -201,7 +201,7 @@ namespace TicketSYS
             0,
             65536});
             this.nudChildTktPrice.Location = new System.Drawing.Point(449, 835);
-            this.nudChildTktPrice.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nudChildTktPrice.Margin = new System.Windows.Forms.Padding(4);
             this.nudChildTktPrice.Maximum = new decimal(new int[] {
             500000,
             0,
@@ -214,7 +214,7 @@ namespace TicketSYS
             // nudMaxTix
             // 
             this.nudMaxTix.Location = new System.Drawing.Point(449, 745);
-            this.nudMaxTix.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nudMaxTix.Margin = new System.Windows.Forms.Padding(4);
             this.nudMaxTix.Maximum = new decimal(new int[] {
             500000,
             0,
@@ -267,7 +267,7 @@ namespace TicketSYS
             this.chkDetails.Checked = true;
             this.chkDetails.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkDetails.Location = new System.Drawing.Point(449, 471);
-            this.chkDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chkDetails.Margin = new System.Windows.Forms.Padding(4);
             this.chkDetails.Name = "chkDetails";
             this.chkDetails.Size = new System.Drawing.Size(42, 41);
             this.chkDetails.TabIndex = 27;
@@ -338,7 +338,7 @@ namespace TicketSYS
             "1  |  3Arena",
             "2  |  Aviva Stadium"});
             this.cboVenue.Location = new System.Drawing.Point(449, 375);
-            this.cboVenue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboVenue.Margin = new System.Windows.Forms.Padding(4);
             this.cboVenue.Name = "cboVenue";
             this.cboVenue.Size = new System.Drawing.Size(592, 56);
             this.cboVenue.TabIndex = 14;
@@ -412,9 +412,9 @@ namespace TicketSYS
             this.grpVenueDetails.Controls.Add(this.txtStreet2);
             this.grpVenueDetails.Controls.Add(this.lblCity);
             this.grpVenueDetails.Location = new System.Drawing.Point(1191, 86);
-            this.grpVenueDetails.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpVenueDetails.Margin = new System.Windows.Forms.Padding(4);
             this.grpVenueDetails.Name = "grpVenueDetails";
-            this.grpVenueDetails.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpVenueDetails.Padding = new System.Windows.Forms.Padding(4);
             this.grpVenueDetails.Size = new System.Drawing.Size(1048, 1110);
             this.grpVenueDetails.TabIndex = 15;
             this.grpVenueDetails.TabStop = false;
@@ -637,7 +637,7 @@ namespace TicketSYS
             this.Name = "frmScheduleEvent";
             this.Text = "Schedule Event";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmCreateEvent_FormClosed);
-            this.Load += new System.EventHandler(this.frmCreateEvent_Load);
+            this.Load += new System.EventHandler(this.frmScheduleEvent_Loader);
             this.mnuMainMenu.ResumeLayout(false);
             this.mnuMainMenu.PerformLayout();
             this.grpScheduleEvent.ResumeLayout(false);

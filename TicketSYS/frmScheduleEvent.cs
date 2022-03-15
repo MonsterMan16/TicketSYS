@@ -28,17 +28,6 @@ namespace TicketSYS
             parent.Show();
         }
 
-        private void frmCreateEvent_Load(object sender, EventArgs e)
-        { 
-            this.cboVenue.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            this.cboVenue.AutoCompleteSource = AutoCompleteSource.ListItems;
-            nudMaxTix.Controls.RemoveAt(0);
-            nudChildTktPrice.Controls.RemoveAt(0);
-            nudAdultTktPrice.Controls.RemoveAt(0);
-
-
-            frmScheduleEvent_Loader();
-        }
 
         private void frmCreateEvent_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -63,12 +52,6 @@ namespace TicketSYS
             }
         }
 
-        private void frmScheduleEvent_Loader()
-        {
-            Venue.CboVenue_LoadVenues(cboVenue);
-            Event = new Event(Event.GetNextEventID());
-            txtEventID.Text = Event.EventID.ToString();
-        }
 
         private void cboVenue_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -85,15 +68,19 @@ namespace TicketSYS
             Event.AddEvent();
             MessageBox.Show("Event Successfully Added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Utilities.ResetFormControls(this);
-            SetupForm();
         }
 
-        private void SetupForm()
+        private void frmScheduleEvent_Loader(object sender, EventArgs e)
         {
-            
-            Event.EventID = Event.GetNextEventID();
-            txtEventID.Text = Convert.ToString(Event.EventID);
             Venue.CboVenue_LoadVenues(cboVenue);
+            Event = new Event(Event.GetNextEventID());
+            txtEventID.Text = Event.EventID.ToString();
+
+            this.cboVenue.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            this.cboVenue.AutoCompleteSource = AutoCompleteSource.ListItems;
+            nudMaxTix.Controls.RemoveAt(0);
+            nudChildTktPrice.Controls.RemoveAt(0);
+            nudAdultTktPrice.Controls.RemoveAt(0);
         }
     }
 }

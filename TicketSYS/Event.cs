@@ -207,7 +207,7 @@ namespace TicketSYS
             combo.SelectedIndex = 0;
         }
 
-        public static void Event_DateTimePickerProperies(DateTimePicker dtpTime)
+        public static void Event_DateTimePickerProperies(DateTimePicker dtpDate, DateTimePicker dtpTime)
         {
             dtpTime.Format = DateTimePickerFormat.Custom;
             dtpTime.CustomFormat = "HH:mm tt";

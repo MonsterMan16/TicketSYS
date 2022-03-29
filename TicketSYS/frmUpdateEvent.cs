@@ -29,12 +29,6 @@ namespace TicketSYS
 
         private void frmUpdateEvent_Load(object sender, EventArgs e)
         {
-            this.cboFeVenue.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            this.cboFeVenue.AutoCompleteSource = AutoCompleteSource.ListItems;
-            nudAvailTix.Controls.RemoveAt(0);
-            nudChildTktPrice.Controls.RemoveAt(0);
-            nudAdultTktPrice.Controls.RemoveAt(0);
-
             Event.CboEvent_LoadEvents(cboEvent);
             Event.Event_DateTimePickerProperies(dtpDate, dtpTime);
         }
@@ -72,7 +66,7 @@ namespace TicketSYS
                 Event.GetEventDetails();
                 // FILL FORM DETAILS & MAKING DETAILS VISIBLE
                 Event.FillEventDetails(txtEventID, txtDescription, dtpDate, dtpTime, nudAvailTix, nudChildTktPrice, nudAdultTktPrice);
-                Event.Venue.FillVenueDetails(txtVenueID, txtVdVenue, txtStreet1, txtStreet2, txtCity, txtEircode, txtCounty, txtMaxCap, txtContact, txtPhone, txtFee);
+                Event.aVenue.FillVenueDetails(txtVenueID, txtVdVenue, txtStreet1, txtStreet2, txtCity, txtEircode, txtCounty, txtMaxCap, txtContact, txtPhone, txtFee);
             }
         }
     }

@@ -10,41 +10,115 @@ namespace TicketSYS
 {
     class Venue
     {
-        private int id;
-        private string name;
-        private string address1;
-        private string address2;
-        private string city;
-        private string eircode;
-        private string county;
-        private int capacity;
-        private string contact;
-        private string phone;
-        private double fee;
-        private char status;
-        public const char VENUE_STATUS_OPEN = 'O';
-        public const char VENUE_STATUS_CLOSED = 'C';
+        private int _id;
+        private string _name;
+        private string _address1;
+        private string _address2;
+        private string _city;
+        private string _eircode;
+        private string _county;
+        private int _capacity;
+        private string _contact;
+        private string _phone;
+        private decimal _fee;
+        private char _status;
 
-        public Venue(int id)
+        public Venue()
         {
-            this.id = id;
-            GetVenueDetails();
+            this._id = 0;
+            this._name = "";
+            this._address1 = "";
+            this._address2 = "";
+            this._city = "";
+            this._eircode = "";
+            this._county = "";
+            this._capacity = 0;
+            this._contact = "";
+            this._phone = "";
+            this._fee = 0;
+            this._status = '\0';
         }
 
-        public int Id { get => id; set => id = value; }
-        public string Name { get => name; set => name = value; }
-        public string Address1 { get => address1; set => address1 = value; }
-        public string Address2 { get => address2; set => address2 = value; }
-        public string City { get => city; set => city = value; }
-        public string County { get => county; set => county = value; }
-        public string Eircode { get => eircode; set => eircode = value; }
-        public int Capacity { get => capacity; set => capacity = value; }
-        public string Contact { get => contact; set => contact = value; }
-        public string Phone { get => phone; set => phone = value; }
-        public double Fee { get => fee; set => fee = value; }
-        public char Status { get => status; set => status = value; }
+        public Venue(int id, String name, String address1, String address2, String city, String eircode, String county, int capacity, String contact, String phone, decimal fee, char status)
+        {
+            this._id = id;
+            this._name = name;
+            this._address1 = address1;
+            this._address2 = address2;
+            this._city = city;
+            this._eircode = eircode;
+            this._county = county;
+            this._capacity = capacity;
+            this._contact = contact;
+            this._phone = phone;
+            this._fee = fee;
+            this._status = status;
+        }
 
-        public void AddVenue()
+
+
+
+        public int Id { get => _id; set => _id = value; }
+        public string Name { get => _name; set => _name = value; }
+        public string Address1 { get => _address1; set => _address1 = value; }
+        public string Address2 { get => _address2; set => _address2 = value; }
+        public string City { get => _city; set => _city = value; }
+        public string County { get => _county; set => _county = value; }
+        public string Eircode { get => _eircode; set => _eircode = value; }
+        public int Capacity { get => _capacity; set => _capacity = value; }
+        public string Contact { get => _contact; set => _contact = value; }
+        public string Phone { get => _phone; set => _phone = value; }
+        public decimal Fee { get => _fee; set => _fee = value; }
+        public char Status { get => _status; set => _status = value; }
+
+
+        public Boolean ValidateVenue()
+        {
+            return true;
+        }
+
+        public void InsertVenue()
+        {
+                using (OracleConnection conn = new OracleConnection(DBConnect.getOradb()))
+                {
+                    try
+                    {
+                        // OPEN DB CONNECTION
+                        conn.Open();
+
+
+                        // DEFINE THE SQL STATEMENT
+                        String sqlInsert = "INSERT INTO VENUES(venue_id,name,address1,address2,city,eircode,county,capacity,contact,phone,fee,status) VALUES(:VENUE_ID, :NAME, :ADDRESS1, :ADDRESS2, :CITY, :EIRCODE, :COUNTY, :CAPACITY, :CONTACT, :PHONE, :FEE, 'O')";
+
+                        // PREPARE SQL STATEMENT
+                        OracleCommand command = new OracleCommand(sqlInsert, conn);
+
+                        command.Parameters.Add("VENUE_ID", this._id);
+                        command.Parameters.Add("NAME", this._name);
+                        command.Parameters.Add("ADDRESS1", this._address1);
+                        command.Parameters.Add("ADDRESS2", this._address2);
+                        command.Parameters.Add("CITY", this._city);
+                        command.Parameters.Add("EIRCODE", this._eircode);
+                        command.Parameters.Add("COUNTY", this._county);
+                        command.Parameters.Add("CAPACITY", this._capacity);
+                        command.Parameters.Add("CONTACT", this._contact);
+                        command.Parameters.Add("PHONE", this._phone);
+                        command.Parameters.Add("FEE", this._fee);
+
+                        command.Prepare();
+                        // EXECUTE SQL STATEMENT
+                        command.ExecuteNonQuery();
+                    }
+                    finally
+                    {
+                        // CLOSE CONNECTION
+                        conn.Close();
+                    }
+                }
+        }
+
+
+        private void UpdateVenue()
         {
             using (OracleConnection conn = new OracleConnection(DBConnect.getOradb()))
             {
@@ -53,74 +127,40 @@ namespace TicketSYS
                     // OPEN DB CONNECTION
                     conn.Open();
 
-
                     // DEFINE THE SQL STATEMENT
-                    String sqlInsert = "INSERT INTO VENUES(venue_id,name,address1,address2,city,eircode,county,capacity,contact,phone,fee,status) VALUES(:VENUE_ID, :NAME, :ADDRESS1, :ADDRESS2, :CITY, :EIRCODE, :COUNTY, :CAPACITY, :CONTACT, :PHONE, :FEE, 'O')";
+                    String sqlInsert = "UPDATE VENUES SET NAME = :NAME,ADDRESS1 = :ADDRESS1,ADDRESS2 = :ADDRESS2,CITY = :CITY,EIRCODE = :EIRCODE,COUNTY = :COUNTY,CAPACITY = :CAPACITY,CONTACT = :CONTACT,PHONE = :PHONE,FEE = :FEE WHERE VENUE_ID = :VENUE_ID";
 
                     // PREPARE SQL STATEMENT
                     OracleCommand command = new OracleCommand(sqlInsert, conn);
+                    command.Connection = conn;
 
-                    command.Parameters.Add("VENUE_ID", this.Id);
-                    command.Parameters.Add("NAME", this.Name);
-                    command.Parameters.Add("ADDRESS1", this.Address1);
-                    command.Parameters.Add("ADDRESS2", this.Address2);
-                    command.Parameters.Add("CITY", this.City);
-                    command.Parameters.Add("EIRCODE", this.Eircode);
-                    command.Parameters.Add("COUNTY", this.County);
-                    command.Parameters.Add("CAPACITY", this.Capacity);
-                    command.Parameters.Add("CONTACT", this.Contact);
-                    command.Parameters.Add("PHONE", this.Phone);
-                    command.Parameters.Add("FEE", this.Fee);
+
+                    command.Parameters.Add("NAME", _name);
+                    command.Parameters.Add("ADDRESS1", _address1);
+                    command.Parameters.Add("ADDRESS2", _address2);
+                    command.Parameters.Add("CITY", _city);
+                    command.Parameters.Add("EIRCODE", _eircode);
+                    command.Parameters.Add("COUNTY", _county);
+                    command.Parameters.Add("CAPACITY", _capacity);
+                    command.Parameters.Add("CONTACT", _contact);
+                    command.Parameters.Add("PHONE", _phone);
+                    command.Parameters.Add("FEE", _fee);
+                    command.Parameters.Add("VENUE_ID", _id);
 
                     command.Prepare();
                     // EXECUTE SQL STATEMENT
                     command.ExecuteNonQuery();
+                }
+                catch (OracleException e)
+                {
+                    // Throw method
+                }
+                finally
+                {
                     // CLOSE CONNECTION
                     conn.Close();
-                } catch(OracleException e)
-                {
-                    string errorMessage = "Code: " + e.ErrorCode + "\n" +
-                           "Message: " + e.Message;
-                    System.Diagnostics.EventLog log = new System.Diagnostics.EventLog();
-                    log.Source = "My Application";
-                    log.WriteEntry(errorMessage);
-                    Console.WriteLine("AN ERROR HAS OCCURED WITH THE DATABASE CONNECTION");
                 }
-            }
-        }
 
-        public void UpdateVenue()
-        {
-            using (OracleConnection conn = new OracleConnection(DBConnect.getOradb()))
-            {
-                // OPEN DB CONNECTION
-                conn.Open();
-
-                // DEFINE THE SQL STATEMENT
-                String sqlInsert = "UPDATE VENUES SET NAME = :NAME,ADDRESS1 = :ADDRESS1,ADDRESS2 = :ADDRESS2,CITY = :CITY,EIRCODE = :EIRCODE,COUNTY = :COUNTY,CAPACITY = :CAPACITY,CONTACT = :CONTACT,PHONE = :PHONE,FEE = :FEE WHERE VENUE_ID = :VENUE_ID";
-
-                // PREPARE SQL STATEMENT
-                OracleCommand command = new OracleCommand(sqlInsert, conn);
-                command.Connection = conn;
-
-
-                command.Parameters.Add("NAME", name);
-                command.Parameters.Add("ADDRESS1", address1);
-                command.Parameters.Add("ADDRESS2", address2);
-                command.Parameters.Add("CITY", city);
-                command.Parameters.Add("EIRCODE", eircode);
-                command.Parameters.Add("COUNTY", county);
-                command.Parameters.Add("CAPACITY", capacity);
-                command.Parameters.Add("CONTACT", contact);
-                command.Parameters.Add("PHONE", phone);
-                command.Parameters.Add("FEE", fee);
-                command.Parameters.Add("VENUE_ID", id);
-
-                command.Prepare();
-                // EXECUTE SQL STATEMENT
-                command.ExecuteNonQuery();
-                // CLOSE CONNECTION
-                conn.Close();
             }
         }
 
@@ -148,11 +188,7 @@ namespace TicketSYS
                     dataSet.DataSetName = "Venues";
                 } catch (OracleException e)
                 {
-                    string errorMessage = "Code: " + e.ErrorCode + "\n" +
-                           "Message: " + e.Message;
-                    System.Diagnostics.EventLog log = new System.Diagnostics.EventLog();
-                    log.Source = "My Application";
-                    log.WriteEntry(errorMessage);
+                    // Write throw statement
                 } finally
                 {
                     adapter.Fill(dataSet, "VS");
@@ -173,7 +209,7 @@ namespace TicketSYS
                 OracleCommand command = new OracleCommand(sqlQuery, conn);
                 // OPEN DB CONNECTION
                 conn.Open();
-                command.Parameters.Add("VENUE_ID", Id);
+                command.Parameters.Add("VENUE_ID", this._id);
                 command.Prepare();
 
                 OracleDataReader reader = command.ExecuteReader();
@@ -192,9 +228,12 @@ namespace TicketSYS
                         Capacity = reader.GetInt32("capacity");
                         Phone = reader.GetString("phone");
                         Contact = reader.GetString("contact");
-                        Fee = reader.GetFloat("fee");
+                        Fee = reader.GetDecimal("fee");
                         Status = Convert.ToChar(reader.GetString("status"));
                     }
+                } catch (Exception e)
+                {
+
                 }
                 finally
                 {
@@ -203,33 +242,18 @@ namespace TicketSYS
             }
         }
 
-        public void FillVenueDetails(TextBox txtVenueID, TextBox txtName, TextBox txtStreet1, TextBox txtStreet2, TextBox txtCity, TextBox txtCounty,  TextBox txtEircode, TextBox txtCapacity, TextBox txtContact, TextBox txtPhone, TextBox txtFee)
-        {
-            txtVenueID.Text = Id.ToString();
-            txtName.Text = Name;
-            txtCity.Text = City;
-            txtStreet1.Text = Address1;
-            txtStreet2.Text = Address2;
-            txtCounty.Text = County;
-            txtEircode.Text = Eircode;
-            txtCapacity.Text = Capacity.ToString();
-            txtContact.Text = Contact;
-            txtPhone.Text = Phone;
-            txtFee.Text = Fee.ToString();
-        }
-
         public void FillVenueDetails(TextBox txtVenueID, TextBox txtStreet1, TextBox txtStreet2, TextBox txtCity, TextBox txtEircode, TextBox txtCounty, TextBox txtCapacity, TextBox txtContact, TextBox txtPhone, TextBox txtFee)
         {
-            txtVenueID.Text = Id.ToString();
-            txtCity.Text = City;
-            txtStreet1.Text = Address1;
-            txtStreet2.Text = Address2;
-            txtEircode.Text = Eircode;
-            txtCounty.Text = County;
-            txtCapacity.Text = Capacity.ToString();
-            txtContact.Text = Contact;
-            txtPhone.Text = Phone;
-            txtFee.Text = Fee.ToString();
+            txtVenueID.Text = _id.ToString();
+            txtCity.Text = _city;
+            txtStreet1.Text = _address1;
+            txtStreet2.Text = _address2;
+            txtEircode.Text = _eircode;
+            txtCounty.Text = _county;
+            txtCapacity.Text = _capacity.ToString();
+            txtContact.Text = _contact;
+            txtPhone.Text = _phone;
+            txtFee.Text = _fee.ToString();
         }
 
         public void FillVenueDetails(TextBox txtVenueID, TextBox txtName,TextBox txtStreet1, TextBox txtStreet2, TextBox txtCity, ComboBox cboCounty, TextBox txtEircode, NumericUpDown nudCapacity, TextBox txtPhone, TextBox txtContact, NumericUpDown nudFee)
@@ -262,7 +286,7 @@ namespace TicketSYS
             return ++count;
         }
 
-        public void SetVenueDetails(String name, String address1, String address2, String city, String county, String eircode, int capacity, String phone, String contact, Double fee)
+        public void SetVenueDetails(String name, String address1, String address2, String city, String county, String eircode, int capacity, String phone, String contact, decimal fee)
         {
             Name = name;
             Address1 = address1;

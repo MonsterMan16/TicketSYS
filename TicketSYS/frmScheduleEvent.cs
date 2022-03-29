@@ -12,9 +12,8 @@ namespace TicketSYS
     public partial class frmScheduleEvent : Form
     {
         frmMainMenu parent;
-        private Event _Event = new Event(Event.GetNextEventID());
+        private Venue _aVenue;
 
-        internal Event Event { get => _Event; set => _Event = value; }
 
         public frmScheduleEvent(frmMainMenu parent)
         {
@@ -57,15 +56,18 @@ namespace TicketSYS
         {
             if(cboVenue.SelectedItem.ToString().Length > 0 && cboVenue.Items.Count > 1)
             {
-                Event.Venue = new Venue(Convert.ToInt32(cboVenue.SelectedItem.ToString().Substring(0, 3)));
-                Event.Venue.FillVenueDetails(txtVenueID, txtName, txtStreet1, txtStreet2, txtCity, txtCounty, txtEircode, txtMaxCap, txtContact, txtPhone, txtFee);
+                _aVenue = new Venue();
+                _aVenue.Id = Convert.ToInt32(cboVenue.SelectedItem.ToString().Substring(0, 3));
+                _aVenue.GetVenueDetails();
+                Venue.FillVenueDetails(txtVenueID, txtName, txtStreet1, txtStreet2, txtCity, txtCounty, txtEircode, txtMaxCap, txtContact, txtPhone, txtFee);
             }
         }
 
         private void btnAddEvent_Click(object sender, EventArgs e)
         {
-            Event.AddDetails(txtTitle,txtDesc, dtpDate, dtpTime, nudMaxTix, nudChildTktPrice, nudAdultTktPrice);
-            Event.AddEvent();
+            Event aEvent = new Event();
+            aEvent.FillEventDetails(txtEventID, _aVenue, txtTitle, DateTimePicker dtpStartDate, DateTimePicker dtpStartTime, NumericUpDown nudAvailableTickets, NumericUpDown nudChildTktPrice, NumericUpDown nudAdultTicketPrice);
+            aEvent.AddEvent();
             MessageBox.Show("Event Successfully Added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Utilities.ResetFormControls(this);
         }
@@ -73,8 +75,7 @@ namespace TicketSYS
         private void frmScheduleEvent_Loader(object sender, EventArgs e)
         {
             Venue.CboVenue_LoadVenues(cboVenue);
-            Event = new Event(Event.GetNextEventID());
-            txtEventID.Text = Event.EventID.ToString();
+            txtEventID.Text = Event.GetNextEventID().ToString();
 
             this.cboVenue.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             this.cboVenue.AutoCompleteSource = AutoCompleteSource.ListItems;

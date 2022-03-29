@@ -11,31 +11,30 @@ namespace TicketSYS
     public partial class frmAddVenue : Form
     {
         frmMainMenu parent;
-        private Venue venue = new Venue(Venue.GetNextVenueID());
         public frmAddVenue(frmMainMenu Parent)
         {
             InitializeComponent();
             this.parent = Parent;
         }
 
-
-
         private void frmCreateVenue_Load(object sender, EventArgs e)
         {
-            frmCreateVenue_Setup();
+            txtVenueID.Text = Venue.GetNextVenueID().ToString("000");
         }
 
         private void btnAddVenue_Click(object sender, EventArgs e)
         {
-            // ADD VENUE DETAILS TO VENUE OBJECT
-            venue.SetVenueDetails(txtName.Text, txtStreet1.Text, txtStreet2.Text, txtCity.Text, cboCounty.Text, txtEircode.Text, Convert.ToInt32(nudCapacity.Value), txtContact.Text, txtPhone.Text, Convert.ToDouble(nudFee.Value));
+            // Validate Data
+
+
             // ADD VENUE
-            venue.AddVenue();
-            // DISPLAY CONFIRMATION MESSAGE
-            MessageBox.Show("Venue successfully added..", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            // RESET UI
-            frmCreateVenue_Setup();
-            //MessageBox.Show("Failed to add Venue", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Venue aVenue = new Venue(Convert.ToInt32(txtVenueID.Text), txtName.Text, txtAddress1.Text, txtAddress2.Text, txtCity.Text, txtEircode.Text,
+                cboCounty.Text, Convert.ToInt32(nudCapacity.Value), txtContact.Text, txtPhone.Text, nudFee.Value, 'O');
+            aVenue.InsertVenue();
+            // Display Confirmation Message
+
+            // Reset User Interface
+            frmCreateVenue_Reset();
         }
 
         private void exitToolStripMnuItem_Click(object sender, EventArgs e)
@@ -52,11 +51,11 @@ namespace TicketSYS
             }
         }
 
-        private void frmCreateVenue_Setup()
+        private void frmCreateVenue_Reset()
         {
             Utilities.ResetFormControls(grpAddVenue);
-            venue = new Venue(Venue.GetNextVenueID());
-            txtVenueID.Text = venue.Id.ToString();
+            txtVenueID.Text = Venue.GetNextVenueID().ToString("000");
+            txtName.Focus();
         }
     }
 }

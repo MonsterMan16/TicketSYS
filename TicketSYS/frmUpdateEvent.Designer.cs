@@ -1,4 +1,6 @@
 ﻿
+using System.Windows.Forms;
+
 namespace TicketSYS
 {
     partial class frmUpdateEvent
@@ -199,15 +201,15 @@ namespace TicketSYS
             // cboFeVenue
             // 
             this.cboFeVenue.FormattingEnabled = true;
-            this.cboFeVenue.Items.AddRange(new object[] {
-            "",
-            "1  |  3Arena",
-            "2  |  Aviva Stadium"});
             this.cboFeVenue.Location = new System.Drawing.Point(380, 84);
             this.cboFeVenue.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboFeVenue.Name = "cboFeVenue";
             this.cboFeVenue.Size = new System.Drawing.Size(592, 56);
             this.cboFeVenue.TabIndex = 44;
+            this.cboFeVenue.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            this.cboFeVenue.AutoCompleteSource = AutoCompleteSource.ListItems; 
+
+
             // 
             // lblFeVenue
             // 
@@ -267,11 +269,7 @@ namespace TicketSYS
             // nudAdultTktPrice
             // 
             this.nudAdultTktPrice.DecimalPlaces = 2;
-            this.nudAdultTktPrice.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+            nudAdultTktPrice.Controls.RemoveAt(0);
             this.nudAdultTktPrice.Location = new System.Drawing.Point(447, 733);
             this.nudAdultTktPrice.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nudAdultTktPrice.Maximum = new decimal(new int[] {
@@ -298,11 +296,7 @@ namespace TicketSYS
             // nudChildTktPrice
             // 
             this.nudChildTktPrice.DecimalPlaces = 2;
-            this.nudChildTktPrice.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
+            nudChildTktPrice.Controls.RemoveAt(0);
             this.nudChildTktPrice.Location = new System.Drawing.Point(447, 643);
             this.nudChildTktPrice.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.nudChildTktPrice.Maximum = new decimal(new int[] {
@@ -330,11 +324,7 @@ namespace TicketSYS
             // 
             this.nudAvailTix.Location = new System.Drawing.Point(447, 554);
             this.nudAvailTix.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.nudAvailTix.Maximum = new decimal(new int[] {
-            500000,
-            0,
-            0,
-            0});
+            this.nudAvailTix.Controls.RemoveAt(0);
             this.nudAvailTix.Name = "nudAvailTix";
             this.nudAvailTix.Size = new System.Drawing.Size(244, 55);
             this.nudAvailTix.TabIndex = 56;
@@ -356,11 +346,6 @@ namespace TicketSYS
             // cboEvent
             // 
             this.cboEvent.FormattingEnabled = true;
-            this.cboEvent.Items.AddRange(new object[] {
-            "",
-            "1 | Micheal Jackson",
-            "1 | Walking on Cars",
-            ""});
             this.cboEvent.Location = new System.Drawing.Point(449, 173);
             this.cboEvent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboEvent.Name = "cboEvent";

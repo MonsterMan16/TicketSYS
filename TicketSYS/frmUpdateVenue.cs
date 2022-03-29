@@ -16,40 +16,36 @@ namespace TicketSYS
 
         private void frmUpdateVenues_Load(object sender, EventArgs e)
         {
-            setFormProperies();
+            Venue.CboVenue_LoadVenues(cboVenue);
         }
 
         private void cboVenue_SelectedIndexChanged(object sender, EventArgs e)
         {
             if(cboVenue.SelectedItem.ToString().Length > 0)
             {
-                venue = new Venue(Convert.ToInt32(cboVenue.SelectedItem.ToString().Substring(0, 3)));
+                venue = new Venue();
                 // GET VENUE DETAILS FROM DATABASE
-                venue.GetVenueDetails();
+                venue.GetVenueDetails(Convert.ToInt32(cboVenue.SelectedItem.ToString().Substring(0, 3)));
                 // FILL FORM DETAILS & MAKING DETAILS VISIBLE
                 venue.FillVenueDetails(txtVenueID, txtName, txtStreet1, txtStreet2, txtCity, cboCounty, txtEircode, nudCapacity, txtContact, txtPhone, nudFee);
+                grpVenue.Visible = true;
+
             }
         }
 
         private void btnUpdateVenue_Click(object sender, EventArgs e)
         { 
+            // SET VENUE DETAILS
             venue.SetVenueDetails(txtName.Text, txtStreet1.Text, txtStreet2.Text, txtCity.Text, cboCounty.SelectedItem.ToString(), txtEircode.Text, Convert.ToInt32(nudCapacity.Value), txtPhone.Text, txtContact.Text, Convert.ToDouble(nudFee.Value));
-            venue.UpdateVenue();
+
             frmUpdateVenue_ResetForm();
         }
 
-        private void setFormProperies()
-        {
-            cboVenue.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cboVenue.AutoCompleteSource = AutoCompleteSource.ListItems;
-            Utilities.ResetFormControls(this);
-            Venue.CboVenue_LoadVenues(cboVenue);
-            // Venue.CboVenue_LoadFilter(cboCounty, cboFtCity);
-            nudCapacity.Controls.RemoveAt(0);
-        }
 
         private void frmUpdateVenue_ResetForm()
         {
+            Venue.CboVenue_LoadVenues(cboVenue);
+
             txtVenueID.Text = String.Empty;
             txtName.Text = String.Empty;
             txtStreet1.Text = String.Empty;
@@ -62,7 +58,8 @@ namespace TicketSYS
             txtContact.Text = String.Empty;
             nudFee.Value = (decimal)0.0;
 
-            grpVenue.Visible = false;
+            grpVenue.Visible = true;
+
         }
 
         private void exitToolStripMnuItem_Click(object sender, EventArgs e)

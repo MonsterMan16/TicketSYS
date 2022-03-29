@@ -11,9 +11,8 @@ namespace TicketSYS
     public partial class frmCloseVenue : Form
     {
         frmMainMenu parent;
-        private Venue _venue;
+        private Venue venue;
 
-        internal Venue Venue { get => _venue; set => _venue = value; }
 
         public frmCloseVenue(frmMainMenu Parent)
         {
@@ -44,7 +43,6 @@ namespace TicketSYS
 
         private void btnCloseVenue_Click(object sender, EventArgs e)
         {
-            Venue.ChangeStatus(Venue.VENUE_STATUS_CLOSED);
             Utilities.ResetFormControls(this);
         }
 
@@ -52,11 +50,11 @@ namespace TicketSYS
         {
             if (cboVenue.SelectedItem.ToString().Length > 0)
             {
-                Venue = new Venue(Convert.ToInt32(cboVenue.SelectedItem.ToString().Substring(0, 3)));
+                venue = new Venue();
                 // GET VENUE DETAILS FROM DATABASE
-                Venue.GetVenueDetails();
+                venue.GetVenueDetails(Convert.ToInt32(cboVenue.SelectedItem.ToString().Substring(0, 3)));
                 // FILL FORM DETAILS & MAKING DETAILS VISIBLE
-                Venue.FillVenueDetails(txtVenueID, txtStreet1, txtStreet2, txtCity, txtEircode, txtCounty, txtCapacity, txtContact, txtPhone, txtFee);
+                venue.FillVenueDetails(txtVenueID, txtStreet1, txtStreet2, txtCity, txtEircode, txtCounty, txtCapacity, txtContact, txtPhone, txtFee);
             }
         }
     }

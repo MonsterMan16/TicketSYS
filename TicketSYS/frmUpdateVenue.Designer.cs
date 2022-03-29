@@ -1,4 +1,6 @@
 ﻿
+using System.Windows.Forms;
+
 namespace TicketSYS
 {
     partial class frmUpdateVenue
@@ -79,14 +81,15 @@ namespace TicketSYS
             this.mnuItemBack});
             this.mnuMainMenu.Location = new System.Drawing.Point(0, 0);
             this.mnuMainMenu.Name = "mnuMainMenu";
-            this.mnuMainMenu.Size = new System.Drawing.Size(854, 45);
+            this.mnuMainMenu.Padding = new System.Windows.Forms.Padding(8, 3, 0, 3);
+            this.mnuMainMenu.Size = new System.Drawing.Size(1139, 58);
             this.mnuMainMenu.TabIndex = 2;
             this.mnuMainMenu.Text = "menuStrip1";
             // 
             // mnuItemBack
             // 
             this.mnuItemBack.Name = "mnuItemBack";
-            this.mnuItemBack.Size = new System.Drawing.Size(93, 41);
+            this.mnuItemBack.Size = new System.Drawing.Size(122, 52);
             this.mnuItemBack.Text = "Back";
             this.mnuItemBack.Click += new System.EventHandler(this.exitToolStripMnuItem_Click);
             // 
@@ -94,11 +97,9 @@ namespace TicketSYS
             // 
             this.grpAddVenue.Controls.Add(this.grpFilter);
             this.grpAddVenue.Controls.Add(this.grpVenue);
-            this.grpAddVenue.Location = new System.Drawing.Point(22, 57);
-            this.grpAddVenue.Margin = new System.Windows.Forms.Padding(2);
+            this.grpAddVenue.Location = new System.Drawing.Point(29, 74);
             this.grpAddVenue.Name = "grpAddVenue";
-            this.grpAddVenue.Padding = new System.Windows.Forms.Padding(2);
-            this.grpAddVenue.Size = new System.Drawing.Size(809, 1285);
+            this.grpAddVenue.Size = new System.Drawing.Size(1079, 1646);
             this.grpAddVenue.TabIndex = 4;
             this.grpAddVenue.TabStop = false;
             this.grpAddVenue.Text = "Add Venue";
@@ -111,9 +112,11 @@ namespace TicketSYS
             this.grpFilter.Controls.Add(this.cboVenue);
             this.grpFilter.Controls.Add(this.cboFtCity);
             this.grpFilter.Controls.Add(this.cboFtCounty);
-            this.grpFilter.Location = new System.Drawing.Point(22, 51);
+            this.grpFilter.Location = new System.Drawing.Point(29, 66);
+            this.grpFilter.Margin = new System.Windows.Forms.Padding(4);
             this.grpFilter.Name = "grpFilter";
-            this.grpFilter.Size = new System.Drawing.Size(759, 281);
+            this.grpFilter.Padding = new System.Windows.Forms.Padding(4);
+            this.grpFilter.Size = new System.Drawing.Size(1012, 365);
             this.grpFilter.TabIndex = 56;
             this.grpFilter.TabStop = false;
             this.grpFilter.Text = "Filter Ticket";
@@ -121,58 +124,57 @@ namespace TicketSYS
             // lblVenue
             // 
             this.lblVenue.AutoSize = true;
-            this.lblVenue.Location = new System.Drawing.Point(125, 209);
-            this.lblVenue.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblVenue.Location = new System.Drawing.Point(167, 271);
             this.lblVenue.Name = "lblVenue";
-            this.lblVenue.Size = new System.Drawing.Size(96, 37);
+            this.lblVenue.Size = new System.Drawing.Size(126, 48);
             this.lblVenue.TabIndex = 48;
             this.lblVenue.Text = "Venue:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(113, 142);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(151, 184);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(108, 37);
+            this.label2.Size = new System.Drawing.Size(140, 48);
             this.label2.TabIndex = 47;
             this.label2.Text = "County:";
             // 
             // lblFtCity
             // 
             this.lblFtCity.AutoSize = true;
-            this.lblFtCity.Location = new System.Drawing.Point(152, 76);
-            this.lblFtCity.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFtCity.Location = new System.Drawing.Point(203, 99);
             this.lblFtCity.Name = "lblFtCity";
-            this.lblFtCity.Size = new System.Drawing.Size(69, 37);
+            this.lblFtCity.Size = new System.Drawing.Size(88, 48);
             this.lblFtCity.TabIndex = 46;
             this.lblFtCity.Text = "City:";
             // 
             // cboVenue
             // 
             this.cboVenue.FormattingEnabled = true;
-            this.cboVenue.Location = new System.Drawing.Point(288, 201);
-            this.cboVenue.Margin = new System.Windows.Forms.Padding(2);
+            this.cboVenue.Location = new System.Drawing.Point(384, 261);
             this.cboVenue.Name = "cboVenue";
-            this.cboVenue.Size = new System.Drawing.Size(290, 45);
+            this.cboVenue.Size = new System.Drawing.Size(385, 56);
             this.cboVenue.TabIndex = 45;
             this.cboVenue.SelectedIndexChanged += new System.EventHandler(this.cboVenue_SelectedIndexChanged);
+
+            this.cboVenue.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            this.cboVenue.AutoCompleteSource = AutoCompleteSource.ListItems;
             // 
             // cboFtCity
             // 
             this.cboFtCity.FormattingEnabled = true;
-            this.cboFtCity.Location = new System.Drawing.Point(288, 68);
+            this.cboFtCity.Location = new System.Drawing.Point(384, 88);
+            this.cboFtCity.Margin = new System.Windows.Forms.Padding(4);
             this.cboFtCity.Name = "cboFtCity";
-            this.cboFtCity.Size = new System.Drawing.Size(290, 45);
+            this.cboFtCity.Size = new System.Drawing.Size(385, 56);
             this.cboFtCity.TabIndex = 44;
             // 
             // cboFtCounty
             // 
             this.cboFtCounty.FormattingEnabled = true;
-            this.cboFtCounty.Location = new System.Drawing.Point(288, 134);
-            this.cboFtCounty.Margin = new System.Windows.Forms.Padding(2);
+            this.cboFtCounty.Location = new System.Drawing.Point(384, 174);
             this.cboFtCounty.Name = "cboFtCounty";
-            this.cboFtCounty.Size = new System.Drawing.Size(290, 45);
+            this.cboFtCounty.Size = new System.Drawing.Size(385, 56);
             this.cboFtCounty.TabIndex = 20;
             // 
             // grpVenue
@@ -200,22 +202,20 @@ namespace TicketSYS
             this.grpVenue.Controls.Add(this.txtName);
             this.grpVenue.Controls.Add(this.lblStreet1);
             this.grpVenue.Controls.Add(this.lblName);
-            this.grpVenue.Location = new System.Drawing.Point(22, 352);
-            this.grpVenue.Margin = new System.Windows.Forms.Padding(2);
+            this.grpVenue.Location = new System.Drawing.Point(29, 457);
             this.grpVenue.Name = "grpVenue";
-            this.grpVenue.Padding = new System.Windows.Forms.Padding(2);
-            this.grpVenue.Size = new System.Drawing.Size(759, 895);
+            this.grpVenue.Size = new System.Drawing.Size(1012, 1160);
             this.grpVenue.TabIndex = 20;
             this.grpVenue.TabStop = false;
             this.grpVenue.Text = "Update Venue Details";
+            this.grpVenue.Visible = false;
             // 
             // btnUpdateVenue
             // 
             this.btnUpdateVenue.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.btnUpdateVenue.Location = new System.Drawing.Point(25, 824);
-            this.btnUpdateVenue.Margin = new System.Windows.Forms.Padding(2);
+            this.btnUpdateVenue.Location = new System.Drawing.Point(33, 1069);
             this.btnUpdateVenue.Name = "btnUpdateVenue";
-            this.btnUpdateVenue.Size = new System.Drawing.Size(708, 52);
+            this.btnUpdateVenue.Size = new System.Drawing.Size(944, 67);
             this.btnUpdateVenue.TabIndex = 45;
             this.btnUpdateVenue.Text = "Update Venue";
             this.btnUpdateVenue.UseVisualStyleBackColor = false;
@@ -258,19 +258,17 @@ namespace TicketSYS
             "Westmeath",
             "Wexford",
             "Wicklow"});
-            this.cboCounty.Location = new System.Drawing.Point(292, 414);
-            this.cboCounty.Margin = new System.Windows.Forms.Padding(2);
+            this.cboCounty.Location = new System.Drawing.Point(389, 537);
             this.cboCounty.Name = "cboCounty";
-            this.cboCounty.Size = new System.Drawing.Size(289, 45);
+            this.cboCounty.Size = new System.Drawing.Size(384, 56);
             this.cboCounty.TabIndex = 44;
             // 
             // lblVenueID
             // 
             this.lblVenueID.AutoSize = true;
-            this.lblVenueID.Location = new System.Drawing.Point(101, 76);
-            this.lblVenueID.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblVenueID.Location = new System.Drawing.Point(135, 99);
             this.lblVenueID.Name = "lblVenueID";
-            this.lblVenueID.Size = new System.Drawing.Size(129, 37);
+            this.lblVenueID.Size = new System.Drawing.Size(171, 48);
             this.lblVenueID.TabIndex = 0;
             this.lblVenueID.Text = "Venue ID:";
             // 
@@ -279,21 +277,19 @@ namespace TicketSYS
             this.txtVenueID.BackColor = System.Drawing.Color.Black;
             this.txtVenueID.ForeColor = System.Drawing.SystemColors.Window;
             this.txtVenueID.HideSelection = false;
-            this.txtVenueID.Location = new System.Drawing.Point(288, 70);
-            this.txtVenueID.Margin = new System.Windows.Forms.Padding(2);
+            this.txtVenueID.Location = new System.Drawing.Point(384, 91);
             this.txtVenueID.Name = "txtVenueID";
             this.txtVenueID.ReadOnly = true;
-            this.txtVenueID.Size = new System.Drawing.Size(88, 43);
+            this.txtVenueID.Size = new System.Drawing.Size(116, 55);
             this.txtVenueID.TabIndex = 0;
             this.txtVenueID.TabStop = false;
             // 
             // lblCounty
             // 
             this.lblCounty.AutoSize = true;
-            this.lblCounty.Location = new System.Drawing.Point(122, 420);
-            this.lblCounty.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCounty.Location = new System.Drawing.Point(163, 545);
             this.lblCounty.Name = "lblCounty";
-            this.lblCounty.Size = new System.Drawing.Size(108, 37);
+            this.lblCounty.Size = new System.Drawing.Size(140, 48);
             this.lblCounty.TabIndex = 43;
             this.lblCounty.Text = "County:";
             // 
@@ -305,15 +301,15 @@ namespace TicketSYS
             0,
             0,
             65536});
-            this.nudFee.Location = new System.Drawing.Point(292, 756);
-            this.nudFee.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.nudFee.Location = new System.Drawing.Point(389, 981);
+            this.nudFee.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.nudFee.Maximum = new decimal(new int[] {
             99,
             0,
             0,
             0});
             this.nudFee.Name = "nudFee";
-            this.nudFee.Size = new System.Drawing.Size(166, 43);
+            this.nudFee.Size = new System.Drawing.Size(221, 55);
             this.nudFee.TabIndex = 42;
             this.nudFee.Value = new decimal(new int[] {
             99,
@@ -323,72 +319,65 @@ namespace TicketSYS
             // 
             // txtStreet2
             // 
-            this.txtStreet2.Location = new System.Drawing.Point(288, 286);
-            this.txtStreet2.Margin = new System.Windows.Forms.Padding(2);
+            this.txtStreet2.Location = new System.Drawing.Point(384, 371);
             this.txtStreet2.Name = "txtStreet2";
-            this.txtStreet2.Size = new System.Drawing.Size(445, 43);
+            this.txtStreet2.Size = new System.Drawing.Size(592, 55);
             this.txtStreet2.TabIndex = 41;
             // 
             // lblStreet2
             // 
             this.lblStreet2.AutoSize = true;
-            this.lblStreet2.Location = new System.Drawing.Point(16, 292);
-            this.lblStreet2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStreet2.Location = new System.Drawing.Point(21, 379);
             this.lblStreet2.Name = "lblStreet2";
-            this.lblStreet2.Size = new System.Drawing.Size(214, 37);
+            this.lblStreet2.Size = new System.Drawing.Size(287, 48);
             this.lblStreet2.TabIndex = 40;
             this.lblStreet2.Text = "Street Address 2:";
             // 
             // lblFee
             // 
             this.lblFee.AutoSize = true;
-            this.lblFee.Location = new System.Drawing.Point(174, 761);
-            this.lblFee.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblFee.Location = new System.Drawing.Point(232, 987);
             this.lblFee.Name = "lblFee";
-            this.lblFee.Size = new System.Drawing.Size(64, 37);
+            this.lblFee.Size = new System.Drawing.Size(84, 48);
             this.lblFee.TabIndex = 39;
             this.lblFee.Text = "Fee:";
             // 
             // txtContact
             // 
-            this.txtContact.Location = new System.Drawing.Point(292, 686);
-            this.txtContact.Margin = new System.Windows.Forms.Padding(2);
+            this.txtContact.Location = new System.Drawing.Point(389, 890);
             this.txtContact.Name = "txtContact";
-            this.txtContact.Size = new System.Drawing.Size(165, 43);
+            this.txtContact.Size = new System.Drawing.Size(219, 55);
             this.txtContact.TabIndex = 38;
             // 
             // txtPhone
             // 
-            this.txtPhone.Location = new System.Drawing.Point(292, 616);
-            this.txtPhone.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPhone.Location = new System.Drawing.Point(389, 799);
             this.txtPhone.Name = "txtPhone";
-            this.txtPhone.Size = new System.Drawing.Size(165, 43);
+            this.txtPhone.Size = new System.Drawing.Size(219, 55);
             this.txtPhone.TabIndex = 36;
             // 
             // lblContact
             // 
             this.lblContact.AutoSize = true;
-            this.lblContact.Location = new System.Drawing.Point(122, 692);
-            this.lblContact.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblContact.Location = new System.Drawing.Point(163, 898);
             this.lblContact.Name = "lblContact";
-            this.lblContact.Size = new System.Drawing.Size(115, 37);
+            this.lblContact.Size = new System.Drawing.Size(150, 48);
             this.lblContact.TabIndex = 37;
             this.lblContact.Text = "Contact:";
             // 
             // lblPhone
             // 
             this.lblPhone.AutoSize = true;
-            this.lblPhone.Location = new System.Drawing.Point(139, 622);
-            this.lblPhone.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPhone.Location = new System.Drawing.Point(185, 807);
             this.lblPhone.Name = "lblPhone";
-            this.lblPhone.Size = new System.Drawing.Size(98, 37);
+            this.lblPhone.Size = new System.Drawing.Size(128, 48);
             this.lblPhone.TabIndex = 35;
             this.lblPhone.Text = "Phone:";
             // 
             // nudCapacity
             // 
-            this.nudCapacity.Location = new System.Drawing.Point(292, 546);
-            this.nudCapacity.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.nudCapacity.Location = new System.Drawing.Point(389, 708);
+            this.nudCapacity.Margin = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.nudCapacity.Maximum = new decimal(new int[] {
             500000,
             0,
@@ -400,105 +389,97 @@ namespace TicketSYS
             0,
             0});
             this.nudCapacity.Name = "nudCapacity";
-            this.nudCapacity.Size = new System.Drawing.Size(166, 43);
+            this.nudCapacity.Size = new System.Drawing.Size(221, 55);
             this.nudCapacity.TabIndex = 34;
             this.nudCapacity.Value = new decimal(new int[] {
             500,
             0,
             0,
             0});
+
+            this.nudCapacity.Controls.RemoveAt(0);
             // 
             // txtEircode
             // 
-            this.txtEircode.Location = new System.Drawing.Point(292, 476);
-            this.txtEircode.Margin = new System.Windows.Forms.Padding(2);
+            this.txtEircode.Location = new System.Drawing.Point(389, 618);
             this.txtEircode.Name = "txtEircode";
-            this.txtEircode.Size = new System.Drawing.Size(165, 43);
+            this.txtEircode.Size = new System.Drawing.Size(219, 55);
             this.txtEircode.TabIndex = 32;
             // 
             // txtCity
             // 
-            this.txtCity.Location = new System.Drawing.Point(292, 350);
-            this.txtCity.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCity.Location = new System.Drawing.Point(389, 454);
             this.txtCity.Name = "txtCity";
-            this.txtCity.Size = new System.Drawing.Size(165, 43);
+            this.txtCity.Size = new System.Drawing.Size(219, 55);
             this.txtCity.TabIndex = 30;
             // 
             // lblMaxCap
             // 
             this.lblMaxCap.AutoSize = true;
-            this.lblMaxCap.Location = new System.Drawing.Point(56, 551);
-            this.lblMaxCap.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMaxCap.Location = new System.Drawing.Point(75, 715);
             this.lblMaxCap.Name = "lblMaxCap";
-            this.lblMaxCap.Size = new System.Drawing.Size(182, 37);
+            this.lblMaxCap.Size = new System.Drawing.Size(239, 48);
             this.lblMaxCap.TabIndex = 33;
             this.lblMaxCap.Text = "Max Capacity:";
             // 
             // lblEircode
             // 
             this.lblEircode.AutoSize = true;
-            this.lblEircode.Location = new System.Drawing.Point(122, 481);
-            this.lblEircode.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblEircode.Location = new System.Drawing.Point(163, 624);
             this.lblEircode.Name = "lblEircode";
-            this.lblEircode.Size = new System.Drawing.Size(111, 37);
+            this.lblEircode.Size = new System.Drawing.Size(146, 48);
             this.lblEircode.TabIndex = 31;
             this.lblEircode.Text = "Eircode:";
             // 
             // txtStreet1
             // 
-            this.txtStreet1.Location = new System.Drawing.Point(288, 215);
-            this.txtStreet1.Margin = new System.Windows.Forms.Padding(2);
+            this.txtStreet1.Location = new System.Drawing.Point(384, 279);
             this.txtStreet1.Name = "txtStreet1";
-            this.txtStreet1.Size = new System.Drawing.Size(445, 43);
+            this.txtStreet1.Size = new System.Drawing.Size(592, 55);
             this.txtStreet1.TabIndex = 28;
             // 
             // lblCity
             // 
             this.lblCity.AutoSize = true;
-            this.lblCity.Location = new System.Drawing.Point(165, 355);
-            this.lblCity.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCity.Location = new System.Drawing.Point(220, 461);
             this.lblCity.Name = "lblCity";
-            this.lblCity.Size = new System.Drawing.Size(69, 37);
+            this.lblCity.Size = new System.Drawing.Size(88, 48);
             this.lblCity.TabIndex = 29;
             this.lblCity.Text = "City:";
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(288, 144);
-            this.txtName.Margin = new System.Windows.Forms.Padding(2);
+            this.txtName.Location = new System.Drawing.Point(384, 187);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(445, 43);
+            this.txtName.Size = new System.Drawing.Size(592, 55);
             this.txtName.TabIndex = 26;
             // 
             // lblStreet1
             // 
             this.lblStreet1.AutoSize = true;
-            this.lblStreet1.Location = new System.Drawing.Point(38, 220);
-            this.lblStreet1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblStreet1.Location = new System.Drawing.Point(51, 285);
             this.lblStreet1.Name = "lblStreet1";
-            this.lblStreet1.Size = new System.Drawing.Size(192, 37);
+            this.lblStreet1.Size = new System.Drawing.Size(258, 48);
             this.lblStreet1.TabIndex = 27;
             this.lblStreet1.Text = "Street Address:";
             // 
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(58, 150);
-            this.lblName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblName.Location = new System.Drawing.Point(77, 195);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(174, 37);
+            this.lblName.Size = new System.Drawing.Size(231, 48);
             this.lblName.TabIndex = 25;
             this.lblName.Text = "Venue Name:";
             // 
             // frmUpdateVenue
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(15F, 37F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(20F, 48F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(854, 1353);
+            this.ClientSize = new System.Drawing.Size(1139, 1745);
             this.Controls.Add(this.grpAddVenue);
             this.Controls.Add(this.mnuMainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmUpdateVenue";
             this.Text = "Update Venue";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmUpdateVenue_FormClosed);

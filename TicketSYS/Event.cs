@@ -10,7 +10,7 @@ namespace TicketSYS
 {
     class Event
     {
-        private Venue _venue;
+        private Venue _aVenue;
         private int _eventID;
         private string _eventTitle;
         private string _eventDescription;
@@ -19,6 +19,19 @@ namespace TicketSYS
         private int _maxTickets;
         private decimal _adultTicketPrice;
         private decimal _childTicketPrice;
+
+        public Event()
+        {
+            _aVenue = new Venue();
+            _eventID = 0;
+            _eventTitle = "";
+            _eventDescription = "";
+            _startDate = DateTime.Now;
+            _startTime = DateTime.Now;
+            _maxTickets = 0;
+            _adultTicketPrice = 0;
+            _childTicketPrice = 0;
+        }
 
         public Event(int EventID)
         {
@@ -30,10 +43,15 @@ namespace TicketSYS
         public string EventDescription { get => _eventDescription; set => _eventDescription = value; }
         public decimal AdultTicketPrice { get => _adultTicketPrice; set => _adultTicketPrice = value; }
         public decimal ChildTicketPrice { get => _childTicketPrice; set => _childTicketPrice = value; }
-        internal Venue Venue { get => _venue; set => _venue = value; }
+        public Venue aVenue { get => _aVenue; set => _aVenue = value; }
         public DateTime StartDate { get => _startDate; set => _startDate = value; }
         public DateTime StartTime { get => _startTime; set => _startTime = value; }
         public int MaxTickets { get => _maxTickets; set => _maxTickets = value; }
+
+        public void AddEventDetails()
+        {
+
+        }
 
         public static int GetNextEventID()
         {
@@ -47,21 +65,6 @@ namespace TicketSYS
             int count = Convert.ToInt32(command.ExecuteScalar());
             return ++count;
         }
-
-        public void AddDetails(TextBox txtTitle, TextBox txtDesc, DateTimePicker dtpDate, DateTimePicker dtpTime, NumericUpDown nudMaxTix, NumericUpDown nudChildTktPrice, NumericUpDown nudAdultTKtPrice)
-        {
-            EventTitle = txtTitle.Text;
-            EventDescription = txtDesc.Text;
-            StartDate = new DateTime(dtpDate.Value.Date.Ticks);
-            StartTime = new DateTime(dtpTime.Value.Date.Ticks);
-            MaxTickets = Convert.ToInt32(nudMaxTix.Value);
-            ChildTicketPrice = nudChildTktPrice.Value;
-            AdultTicketPrice = nudAdultTKtPrice.Value;
-        }
- 
-
-
-
 
         public void AddEvent()
         {
@@ -80,7 +83,7 @@ namespace TicketSYS
                     OracleCommand command = new OracleCommand(sqlInsert, conn);
 
                     command.Parameters.Add("EVENT_ID", EventID);
-                    command.Parameters.Add("VENUE_ID", Venue.Id);
+                    command.Parameters.Add("VENUE_ID", aVenue.Id);
                     command.Parameters.Add("TITLE", EventTitle);
                     command.Parameters.Add("DESCRIPTION", EventDescription);
                     command.Parameters.Add("EVENT_DATE", StartDate);
@@ -91,17 +94,12 @@ namespace TicketSYS
                     command.Prepare();
                     // EXECUTE SQL STATEMENT
                     command.ExecuteNonQuery();
+                    
+                    
+                } finally
+                {
                     // CLOSE CONNECTION
                     conn.Close();
-                }
-                catch (OracleException e)
-                {
-                    string errorMessage = "Code: " + e.ErrorCode + "\n" +
-                           "Message: " + e.Message;
-                    System.Diagnostics.EventLog log = new System.Diagnostics.EventLog();
-                    log.Source = "My Application";
-                    log.WriteEntry(errorMessage);
-                    Console.WriteLine("AN ERROR HAS OCCURED WITH THE DATABASE CONNECTION");
                 }
             }
         }
@@ -165,8 +163,8 @@ namespace TicketSYS
                 {
                     while (reader.Read())
                     {
-                        EventID = Convert.ToInt32(reader.GetString("EVENT_ID"));
-                        Venue = new Venue(Convert.ToInt32(reader.GetString("EVENT_ID")));
+                        EventID = reader.GetInt32("EVENT_ID");
+                        aVenue.GetVenueDetails(reader.GetInt32("VENUE_ID"));
                         EventTitle = reader.GetString("TITLE");
                         EventDescription = reader.GetString("DESCRIPTION");
                         StartDate = reader.GetDateTime("START_DATE");
@@ -179,21 +177,22 @@ namespace TicketSYS
                 finally
                 {
                     reader.Close();
-                    Venue.GetVenueDetails();
                 }
             }
         }
 
-        public void FillEventDetails(TextBox txtEventID, TextBox txtDescription, DateTimePicker dtpStartDate, DateTimePicker dtpStartTime, NumericUpDown nudAvailableTickets, NumericUpDown nudChildTktPrice, NumericUpDown nudAdultTicketPrice)
+        public void FillEventDetails(TextBox txtEventID, Venue venue, TextBox txtEventTitle, TextBox txtDescription, DateTimePicker dtpStartDate, DateTimePicker dtpStartTime, NumericUpDown nudAvailableTickets, NumericUpDown nudChildTktPrice, NumericUpDown nudAdultTicketPrice)
         {
-            txtEventID.Text = EventID.ToString();
-            txtDescription.Text = EventDescription;
+            txtEventID.Text = _eventID.ToString();
+            txtEventTitle.Text = _eventTitle;
+            txtDescription.Text = _eventDescription;
             dtpStartDate.Value = dtpStartDate.Value;
             dtpStartTime.Value = dtpStartTime.Value;
-            nudAvailableTickets.Value = MaxTickets;
-            nudChildTktPrice.Value = ChildTicketPrice;
-            nudAdultTicketPrice.Value = AdultTicketPrice;
+            nudAvailableTickets.Value = _maxTickets;
+            nudChildTktPrice.Value = Convert.ToDecimal(ChildTicketPrice);
+            nudAdultTicketPrice.Value = _adultTicketPrice;
         }
+
 
         public static void CboEvent_LoadEvents(ComboBox combo)
         {

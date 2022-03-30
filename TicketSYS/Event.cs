@@ -48,7 +48,7 @@ namespace TicketSYS
         public DateTime StartTime { get => _startTime; set => _startTime = value; }
         public int MaxTickets { get => _maxTickets; set => _maxTickets = value; }
 
-        public void AddEventDetails()
+        public void AddEventDetails(TextBox eventID, Text)
         {
 
         }

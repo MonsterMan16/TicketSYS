@@ -11,26 +11,26 @@ namespace TicketSYS
     class Event
     {
         private Venue _aVenue;
-        private int _eventID;
-        private string _eventTitle;
-        private string _eventDescription;
+        private int _id;
+        private string _title;
+        private string _description;
         private DateTime _startDate;
         private DateTime _startTime;
-        private int _maxTickets;
-        private decimal _adultTicketPrice;
-        private decimal _childTicketPrice;
+        private int _availTix;
+        private decimal _adultPrice;
+        private decimal _childPrice;
 
         public Event()
         {
             _aVenue = new Venue();
-            _eventID = 0;
-            _eventTitle = "";
-            _eventDescription = "";
+            _id = 0;
+            _title = "";
+            _description = "";
             _startDate = DateTime.Now;
             _startTime = DateTime.Now;
-            _maxTickets = 0;
-            _adultTicketPrice = 0;
-            _childTicketPrice = 0;
+            _availTix = 0;
+            _adultPrice = 0;
+            _childPrice = 0;
         }
 
         public Event(int EventID)
@@ -38,19 +38,26 @@ namespace TicketSYS
             this.EventID = EventID;
         }
 
-        public int EventID { get => _eventID; set => _eventID = value; }
-        public string EventTitle { get => _eventTitle; set => _eventTitle = value; }
-        public string EventDescription { get => _eventDescription; set => _eventDescription = value; }
-        public decimal AdultTicketPrice { get => _adultTicketPrice; set => _adultTicketPrice = value; }
-        public decimal ChildTicketPrice { get => _childTicketPrice; set => _childTicketPrice = value; }
+        public int EventID { get => _id; set => _id = value; }
+        public string EventTitle { get => _title; set => _title = value; }
+        public string EventDescription { get => _description; set => _description = value; }
+        public decimal AdultTicketPrice { get => _adultPrice; set => _adultPrice = value; }
+        public decimal ChildTicketPrice { get => _childPrice; set => _childPrice = value; }
         public Venue aVenue { get => _aVenue; set => _aVenue = value; }
         public DateTime StartDate { get => _startDate; set => _startDate = value; }
         public DateTime StartTime { get => _startTime; set => _startTime = value; }
-        public int MaxTickets { get => _maxTickets; set => _maxTickets = value; }
+        public int MaxTickets { get => _availTix; set => _availTix = value; }
 
-        public void AddEventDetails(TextBox eventID, Text)
+        public void AddEventDetails(TextBox txtEventID, TextBox txtTitle, TextBox txtDescription, DateTimePicker dtpDate, DateTimePicker dtpTime, NumericUpDown nudAvailTix, NumericUpDown nudChildPrice, NumericUpDown nudAdultPrice)
         {
-
+            _id = Convert.ToInt32(txtEventID.Text);
+            _title = txtTitle.Text;
+            _description = txtDescription.Text;
+            _startDate = dtpDate.Value;
+            _startTime = dtpTime.Value;
+            _availTix = Convert.ToInt32(nudAvailTix.Value);
+            _adultPrice = nudAdultPrice.Value;
+            _childPrice = nudChildPrice.Value;
         }
 
         public static int GetNextEventID()
@@ -94,9 +101,11 @@ namespace TicketSYS
                     command.Prepare();
                     // EXECUTE SQL STATEMENT
                     command.ExecuteNonQuery();
-                    
-                    
-                } finally
+
+
+                } catch(Exception e) {
+                }
+                finally
                 {
                     // CLOSE CONNECTION
                     conn.Close();
@@ -181,16 +190,27 @@ namespace TicketSYS
             }
         }
 
-        public void FillEventDetails(TextBox txtEventID, Venue venue, TextBox txtEventTitle, TextBox txtDescription, DateTimePicker dtpStartDate, DateTimePicker dtpStartTime, NumericUpDown nudAvailableTickets, NumericUpDown nudChildTktPrice, NumericUpDown nudAdultTicketPrice)
+        public void FillEventDetails(TextBox txtEventID, TextBox txtEventTitle, TextBox txtDescription, DateTimePicker dtpStartDate, DateTimePicker dtpStartTime, NumericUpDown nudAvailableTickets, NumericUpDown nudChildTktPrice, NumericUpDown nudAdultTicketPrice)
         {
-            txtEventID.Text = _eventID.ToString();
-            txtEventTitle.Text = _eventTitle;
-            txtDescription.Text = _eventDescription;
+            txtEventID.Text = _id.ToString();
+            txtEventTitle.Text = _title;
+            txtDescription.Text = _description;
             dtpStartDate.Value = dtpStartDate.Value;
             dtpStartTime.Value = dtpStartTime.Value;
-            nudAvailableTickets.Value = _maxTickets;
+            nudAvailableTickets.Value = _availTix;
             nudChildTktPrice.Value = Convert.ToDecimal(ChildTicketPrice);
-            nudAdultTicketPrice.Value = _adultTicketPrice;
+            nudAdultTicketPrice.Value = _adultPrice;
+        }
+
+        public void FillEventDetails(TextBox txtEventID, TextBox txtDescription, DateTimePicker dtpStartDate, DateTimePicker dtpStartTime, NumericUpDown nudAvailableTickets, NumericUpDown nudChildTktPrice, NumericUpDown nudAdultTicketPrice)
+        {
+            txtEventID.Text = _id.ToString();
+            txtDescription.Text = _description;
+            dtpStartDate.Value = dtpStartDate.Value;
+            dtpStartTime.Value = dtpStartTime.Value;
+            nudAvailableTickets.Value = _availTix;
+            nudChildTktPrice.Value = Convert.ToDecimal(ChildTicketPrice);
+            nudAdultTicketPrice.Value = _adultPrice;
         }
 
 

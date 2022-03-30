@@ -111,7 +111,6 @@ namespace TicketSYS
             this.mnuMainMenu.Size = new System.Drawing.Size(1523, 40);
             this.mnuMainMenu.TabIndex = 1;
             this.mnuMainMenu.Text = "menuStrip1";
-            this.mnuMainMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.mnuMainMenu_ItemClicked);
             // 
             // MnuItemBack
             // 
@@ -153,7 +152,6 @@ namespace TicketSYS
             this.grpCreateSale.TabIndex = 2;
             this.grpCreateSale.TabStop = false;
             this.grpCreateSale.Text = "Create Sale";
-            this.grpCreateSale.Enter += new System.EventHandler(this.grpCreateSale_Enter);
             // 
             // nudTotal
             // 
@@ -185,7 +183,6 @@ namespace TicketSYS
             this.nudChildTktQty.Name = "nudChildTktQty";
             this.nudChildTktQty.Size = new System.Drawing.Size(157, 39);
             this.nudChildTktQty.TabIndex = 38;
-            this.nudChildTktQty.ValueChanged += new System.EventHandler(this.nudChildTktQty_ValueChanged);
             // 
             // nudAdultTktQty
             // 
@@ -198,7 +195,6 @@ namespace TicketSYS
             this.nudAdultTktQty.Name = "nudAdultTktQty";
             this.nudAdultTktQty.Size = new System.Drawing.Size(157, 39);
             this.nudAdultTktQty.TabIndex = 37;
-            this.nudAdultTktQty.ValueChanged += new System.EventHandler(this.nudAdultTktQty_ValueChanged);
             // 
             // lblTotalCost
             // 
@@ -219,7 +215,6 @@ namespace TicketSYS
             this.lblTicketID.Size = new System.Drawing.Size(112, 32);
             this.lblTicketID.TabIndex = 47;
             this.lblTicketID.Text = "Ticket ID:";
-            this.lblTicketID.Click += new System.EventHandler(this.lblTicketID_Click);
             // 
             // chkEDetails
             // 
@@ -243,7 +238,6 @@ namespace TicketSYS
             this.txtTicketID.ReadOnly = true;
             this.txtTicketID.Size = new System.Drawing.Size(96, 39);
             this.txtTicketID.TabIndex = 48;
-            this.txtTicketID.TextChanged += new System.EventHandler(this.txtTicketID_TextChanged);
             // 
             // lblEventDetails
             // 
@@ -276,7 +270,6 @@ namespace TicketSYS
             this.lblVenueDetails.Size = new System.Drawing.Size(165, 32);
             this.lblVenueDetails.TabIndex = 49;
             this.lblVenueDetails.Text = "Venue Details:";
-            this.lblVenueDetails.Click += new System.EventHandler(this.lblVenueDetails_Click);
             // 
             // lblChildTktQty
             // 
@@ -326,7 +319,6 @@ namespace TicketSYS
             this.cboEvent.Name = "cboEvent";
             this.cboEvent.Size = new System.Drawing.Size(232, 40);
             this.cboEvent.TabIndex = 20;
-            this.cboEvent.SelectedIndexChanged += new System.EventHandler(this.cboEvent_SelectedIndexChanged);
             // 
             // lblEvent
             // 
@@ -337,7 +329,6 @@ namespace TicketSYS
             this.lblEvent.Size = new System.Drawing.Size(78, 32);
             this.lblEvent.TabIndex = 19;
             this.lblEvent.Text = "Event:";
-            this.lblEvent.Click += new System.EventHandler(this.lblEvent_Click);
             // 
             // txtPhoneNum
             // 
@@ -375,7 +366,6 @@ namespace TicketSYS
             this.btnCreateSale.TabIndex = 14;
             this.btnCreateSale.Text = "Create Sale";
             this.btnCreateSale.UseVisualStyleBackColor = false;
-            this.btnCreateSale.Click += new System.EventHandler(this.btnCreateSale_Click);
             // 
             // lblFirstName
             // 
@@ -427,7 +417,6 @@ namespace TicketSYS
             this.btnFilter.TabIndex = 45;
             this.btnFilter.Text = "Filter Events";
             this.btnFilter.UseVisualStyleBackColor = false;
-            this.btnFilter.Click += new System.EventHandler(this.btnFilter_Click);
             // 
             // cboVenue
             // 
@@ -476,7 +465,6 @@ namespace TicketSYS
             this.grpEDetails.TabIndex = 53;
             this.grpEDetails.TabStop = false;
             this.grpEDetails.Text = "Event Details";
-            this.grpEDetails.Enter += new System.EventHandler(this.grpEDetails_Enter);
             // 
             // dtpTime
             // 
@@ -576,7 +564,6 @@ namespace TicketSYS
             this.txtAvailTix.ReadOnly = true;
             this.txtAvailTix.Size = new System.Drawing.Size(111, 39);
             this.txtAvailTix.TabIndex = 50;
-            this.txtAvailTix.TextChanged += new System.EventHandler(this.txtAvailTix_TextChanged);
             // 
             // lblTime
             // 
@@ -587,7 +574,6 @@ namespace TicketSYS
             this.lblTime.Size = new System.Drawing.Size(138, 32);
             this.lblTime.TabIndex = 49;
             this.lblTime.Text = "Event Time:";
-            this.lblTime.Click += new System.EventHandler(this.lblTime_Click);
             // 
             // lblAdultTktPrice
             // 
@@ -639,7 +625,6 @@ namespace TicketSYS
             this.lblAvailTix.Size = new System.Drawing.Size(195, 32);
             this.lblAvailTix.TabIndex = 33;
             this.lblAvailTix.Text = "Available Tickets:";
-            this.lblAvailTix.Click += new System.EventHandler(this.lblAvailTix_Click);
             // 
             // lblDate
             // 
@@ -650,7 +635,6 @@ namespace TicketSYS
             this.lblDate.Size = new System.Drawing.Size(135, 32);
             this.lblDate.TabIndex = 16;
             this.lblDate.Text = "Event Date:";
-            this.lblDate.Click += new System.EventHandler(this.lblDate_Click);
             // 
             // grpVDetails
             // 

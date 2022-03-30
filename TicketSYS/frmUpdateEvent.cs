@@ -65,7 +65,7 @@ namespace TicketSYS
                 // GET VENUE DETAILS FROM DATABASE
                 Event.GetEventDetails();
                 // FILL FORM DETAILS & MAKING DETAILS VISIBLE
-                Event.FillEventDetails(txtEventID, txtDescription, dtpDate, dtpTime, nudAvailTix, nudChildTktPrice, nudAdultTktPrice);
+                _event.FillEventDetails(txtEventID, txtDescription, dtpDate, dtpTime, nudAvailTix, nudChildTktPrice, nudAdultTktPrice);
                 Event.aVenue.FillVenueDetails(txtVenueID, txtVdVenue, txtStreet1, txtStreet2, txtCity, txtEircode, txtCounty, txtMaxCap, txtContact, txtPhone, txtFee);
             }
         }

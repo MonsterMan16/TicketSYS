@@ -30,7 +30,7 @@ namespace TicketSYS
             // ADD VENUE
             Venue aVenue = new Venue(Convert.ToInt32(txtVenueID.Text), txtName.Text, txtAddress1.Text, txtAddress2.Text, txtCity.Text, txtEircode.Text,
                 cboCounty.Text, Convert.ToInt32(nudCapacity.Value), txtContact.Text, txtPhone.Text, nudFee.Value, 'O');
-            aVenue.InsertVenue();
+            aVenue.AddVenue();
             // Display Confirmation Message
 
             // Reset User Interface

@@ -31,6 +31,8 @@ namespace TicketSYS
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCloseVenue));
             this.grpCloseVenue = new System.Windows.Forms.GroupBox();
+            this.txtCounty = new System.Windows.Forms.TextBox();
+            this.lblCounty = new System.Windows.Forms.Label();
             this.txtContact = new System.Windows.Forms.TextBox();
             this.txtPhone = new System.Windows.Forms.TextBox();
             this.lblContact = new System.Windows.Forms.Label();
@@ -54,8 +56,6 @@ namespace TicketSYS
             this.lblVenueID = new System.Windows.Forms.Label();
             this.mnuMainMenu = new System.Windows.Forms.MenuStrip();
             this.mnuItemBack = new System.Windows.Forms.ToolStripMenuItem();
-            this.txtCounty = new System.Windows.Forms.TextBox();
-            this.lblCounty = new System.Windows.Forms.Label();
             this.grpCloseVenue.SuspendLayout();
             this.mnuMainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -93,6 +93,29 @@ namespace TicketSYS
             this.grpCloseVenue.TabIndex = 5;
             this.grpCloseVenue.TabStop = false;
             this.grpCloseVenue.Text = "Close Venue";
+            // 
+            // txtCounty
+            // 
+            this.txtCounty.BackColor = System.Drawing.Color.Black;
+            this.txtCounty.ForeColor = System.Drawing.Color.White;
+            this.txtCounty.Location = new System.Drawing.Point(398, 514);
+            this.txtCounty.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCounty.Name = "txtCounty";
+            this.txtCounty.ReadOnly = true;
+            this.txtCounty.Size = new System.Drawing.Size(165, 43);
+            this.txtCounty.TabIndex = 27;
+            this.txtCounty.TabStop = false;
+            // 
+            // lblCounty
+            // 
+            this.lblCounty.AutoSize = true;
+            this.lblCounty.BackColor = System.Drawing.Color.Transparent;
+            this.lblCounty.Location = new System.Drawing.Point(229, 521);
+            this.lblCounty.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblCounty.Name = "lblCounty";
+            this.lblCounty.Size = new System.Drawing.Size(108, 37);
+            this.lblCounty.TabIndex = 26;
+            this.lblCounty.Text = "County:";
             // 
             // txtContact
             // 
@@ -222,7 +245,7 @@ namespace TicketSYS
             "",
             "1  |  3Arena",
             "2  |  Aviva Stadium"});
-            this.cboVenue.Location = new System.Drawing.Point(396, 86);
+            this.cboVenue.Location = new System.Drawing.Point(398, 162);
             this.cboVenue.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cboVenue.Name = "cboVenue";
             this.cboVenue.Size = new System.Drawing.Size(445, 45);
@@ -300,7 +323,7 @@ namespace TicketSYS
             // 
             this.txtVenueID.BackColor = System.Drawing.Color.Black;
             this.txtVenueID.ForeColor = System.Drawing.Color.White;
-            this.txtVenueID.Location = new System.Drawing.Point(396, 157);
+            this.txtVenueID.Location = new System.Drawing.Point(398, 86);
             this.txtVenueID.Margin = new System.Windows.Forms.Padding(2);
             this.txtVenueID.Name = "txtVenueID";
             this.txtVenueID.ReadOnly = true;
@@ -311,7 +334,7 @@ namespace TicketSYS
             // lblVenueName
             // 
             this.lblVenueName.AutoSize = true;
-            this.lblVenueName.Location = new System.Drawing.Point(237, 92);
+            this.lblVenueName.Location = new System.Drawing.Point(239, 168);
             this.lblVenueName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblVenueName.Name = "lblVenueName";
             this.lblVenueName.Size = new System.Drawing.Size(96, 37);
@@ -321,7 +344,7 @@ namespace TicketSYS
             // lblVenueID
             // 
             this.lblVenueID.AutoSize = true;
-            this.lblVenueID.Location = new System.Drawing.Point(206, 163);
+            this.lblVenueID.Location = new System.Drawing.Point(208, 92);
             this.lblVenueID.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblVenueID.Name = "lblVenueID";
             this.lblVenueID.Size = new System.Drawing.Size(129, 37);
@@ -345,29 +368,6 @@ namespace TicketSYS
             this.mnuItemBack.Size = new System.Drawing.Size(93, 41);
             this.mnuItemBack.Text = "Back";
             this.mnuItemBack.Click += new System.EventHandler(this.exitToolStripMnuItem_Click);
-            // 
-            // txtCounty
-            // 
-            this.txtCounty.BackColor = System.Drawing.Color.Black;
-            this.txtCounty.ForeColor = System.Drawing.Color.White;
-            this.txtCounty.Location = new System.Drawing.Point(398, 514);
-            this.txtCounty.Margin = new System.Windows.Forms.Padding(2);
-            this.txtCounty.Name = "txtCounty";
-            this.txtCounty.ReadOnly = true;
-            this.txtCounty.Size = new System.Drawing.Size(165, 43);
-            this.txtCounty.TabIndex = 27;
-            this.txtCounty.TabStop = false;
-            // 
-            // lblCounty
-            // 
-            this.lblCounty.AutoSize = true;
-            this.lblCounty.BackColor = System.Drawing.Color.Transparent;
-            this.lblCounty.Location = new System.Drawing.Point(229, 521);
-            this.lblCounty.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblCounty.Name = "lblCounty";
-            this.lblCounty.Size = new System.Drawing.Size(108, 37);
-            this.lblCounty.TabIndex = 26;
-            this.lblCounty.Text = "County:";
             // 
             // frmCloseVenue
             // 

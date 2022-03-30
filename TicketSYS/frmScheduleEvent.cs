@@ -12,7 +12,7 @@ namespace TicketSYS
     public partial class frmScheduleEvent : Form
     {
         frmMainMenu parent;
-        private Venue _aVenue;
+        private Event _aEvent = new Event();
 
 
         public frmScheduleEvent(frmMainMenu parent)
@@ -56,18 +56,14 @@ namespace TicketSYS
         {
             if(cboVenue.SelectedItem.ToString().Length > 0 && cboVenue.Items.Count > 1)
             {
-                _aVenue = new Venue();
-                _aVenue.Id = Convert.ToInt32(cboVenue.SelectedItem.ToString().Substring(0, 3));
-                _aVenue.GetVenueDetails();
-                Venue.FillVenueDetails(txtVenueID, txtName, txtStreet1, txtStreet2, txtCity, txtCounty, txtEircode, txtMaxCap, txtContact, txtPhone, txtFee);
+                _aEvent.aVenue = new Venue();
+                _aEvent.aVenue.GetVenueDetails(Convert.ToInt32(cboVenue.SelectedItem.ToString().Substring(0, 3)));
+                _aEvent.aVenue.FillVenueDetails(txtVenueID, txtName, txtStreet1, txtStreet2, txtCity, txtCounty, txtEircode, txtMaxCap, txtContact, txtPhone, txtFee);
             }
         }
 
         private void btnAddEvent_Click(object sender, EventArgs e)
         {
-            Event aEvent = new Event();
-            aEvent.FillEventDetails(txtEventID, _aVenue, txtTitle, DateTimePicker dtpStartDate, DateTimePicker dtpStartTime, NumericUpDown nudAvailableTickets, NumericUpDown nudChildTktPrice, NumericUpDown nudAdultTicketPrice);
-            aEvent.AddEvent();
             MessageBox.Show("Event Successfully Added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Utilities.ResetFormControls(this);
         }

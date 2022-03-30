@@ -7,7 +7,7 @@ namespace TicketSYS
     public partial class frmUpdateVenue : Form
     {
         frmMainMenu parent;
-        private Venue venue;
+        private Venue _aVenue;
         public frmUpdateVenue(frmMainMenu parent)
         {
             InitializeComponent();
@@ -23,11 +23,12 @@ namespace TicketSYS
         {
             if(cboVenue.SelectedItem.ToString().Length > 0)
             {
-                venue = new Venue();
+                _aVenue = new Venue();
                 // GET VENUE DETAILS FROM DATABASE
-                venue.GetVenueDetails(Convert.ToInt32(cboVenue.SelectedItem.ToString().Substring(0, 3)));
+                _aVenue.GetVenueDetails(Convert.ToInt32(cboVenue.SelectedItem.ToString().Substring(0, 3)));
                 // FILL FORM DETAILS & MAKING DETAILS VISIBLE
-                venue.FillVenueDetails(txtVenueID, txtName, txtStreet1, txtStreet2, txtCity, cboCounty, txtEircode, nudCapacity, txtContact, txtPhone, nudFee);
+                _aVenue.FillVenueDetails(txtVenueID, txtName, txtStreet1, txtStreet2, txtCity, cboCounty, txtEircode, nudCapacity, txtContact, txtPhone, nudFee);
+
                 grpVenue.Visible = true;
 
             }
@@ -36,8 +37,8 @@ namespace TicketSYS
         private void btnUpdateVenue_Click(object sender, EventArgs e)
         { 
             // SET VENUE DETAILS
-            venue.SetVenueDetails(txtName.Text, txtStreet1.Text, txtStreet2.Text, txtCity.Text, cboCounty.SelectedItem.ToString(), txtEircode.Text, Convert.ToInt32(nudCapacity.Value), txtPhone.Text, txtContact.Text, Convert.ToDouble(nudFee.Value));
-
+            _aVenue.SetVenueDetails(txtName.Text, txtStreet1.Text, txtStreet2.Text, txtCity.Text, cboCounty.SelectedItem.ToString(), txtEircode.Text, Convert.ToInt32(nudCapacity.Value), txtPhone.Text, txtContact.Text, nudFee.Value);
+            _aVenue.UpdateVenue();
             frmUpdateVenue_ResetForm();
         }
 

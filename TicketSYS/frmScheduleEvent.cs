@@ -12,6 +12,7 @@ namespace TicketSYS
     public partial class frmScheduleEvent : Form
     {
         frmMainMenu parent;
+        private Venue _aVenue = new Venue();
         private Event _aEvent = new Event();
 
 
@@ -64,7 +65,8 @@ namespace TicketSYS
 
         private void btnAddEvent_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Event Successfully Added!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            _aEvent.AddEventDetails(txtEventID, txtTitle, txtDesc, dtpDate, dtpTime, nudAvailTix, nudAdultTktPrice, nudChildTktPrice);
+            _aEvent.AddEvent();
             Utilities.ResetFormControls(this);
         }
 
@@ -73,11 +75,8 @@ namespace TicketSYS
             Venue.CboVenue_LoadVenues(cboVenue);
             txtEventID.Text = Event.GetNextEventID().ToString();
 
-            this.cboVenue.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            this.cboVenue.AutoCompleteSource = AutoCompleteSource.ListItems;
-            nudMaxTix.Controls.RemoveAt(0);
-            nudChildTktPrice.Controls.RemoveAt(0);
-            nudAdultTktPrice.Controls.RemoveAt(0);
+            
+            
         }
     }
 }

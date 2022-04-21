@@ -124,6 +124,7 @@ namespace TicketSYS
             this.txtContact.Location = new System.Drawing.Point(400, 652);
             this.txtContact.Margin = new System.Windows.Forms.Padding(2);
             this.txtContact.Name = "txtContact";
+            this.txtContact.ReadOnly = true;
             this.txtContact.Size = new System.Drawing.Size(289, 43);
             this.txtContact.TabIndex = 25;
             // 
@@ -134,6 +135,7 @@ namespace TicketSYS
             this.txtPhone.Location = new System.Drawing.Point(400, 721);
             this.txtPhone.Margin = new System.Windows.Forms.Padding(2);
             this.txtPhone.Name = "txtPhone";
+            this.txtPhone.ReadOnly = true;
             this.txtPhone.Size = new System.Drawing.Size(289, 43);
             this.txtPhone.TabIndex = 23;
             // 

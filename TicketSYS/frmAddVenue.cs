@@ -53,7 +53,7 @@ namespace TicketSYS
 
         private void frmCreateVenue_Reset()
         {
-            Utilities.ResetFormControls(grpAddVenue);
+            Utilities.ResetAllControls(grpAddVenue);
             txtVenueID.Text = Venue.GetNextVenueID().ToString("000");
             txtName.Focus();
         }

@@ -44,7 +44,7 @@ namespace TicketSYS
         private void btnCloseVenue_Click(object sender, EventArgs e)
         {
             _aVenue.UpdateVenue('C');
-            Utilities.ResetFormControls(this);
+            Utilities.ResetAllControls(grpCloseVenue);
         }
 
         private void cboVenue_SelectedIndexChanged(object sender, EventArgs e)

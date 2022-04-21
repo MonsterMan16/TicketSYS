@@ -29,8 +29,9 @@ namespace TicketSYS
 
         private void frmUpdateEvent_Load(object sender, EventArgs e)
         {
+            txtEventID.Text = Event.GetNextEventID().ToString("000");
             Event.CboEvent_LoadEvents(cboEvent);
-            Event.Event_DateTimePickerProperies(dtpDate, dtpTime);
+            Venue.CboVenue_LoadVenues(cboVenue);
         }
 
         private void frmUpdateEvent_FormClosed(object sender, FormClosedEventArgs e)
@@ -61,13 +62,24 @@ namespace TicketSYS
         {
             if (cboEvent.SelectedItem.ToString().Length > 0)
             {
-                Event = new Event(Convert.ToInt32(cboEvent.SelectedItem.ToString().Substring(0, 3)));
+                _event = new Event(Convert.ToInt32(cboEvent.SelectedItem.ToString().Substring(0, 3)));
                 // GET VENUE DETAILS FROM DATABASE
-                Event.GetEventDetails();
+                _event.GetEventDetails();
                 // FILL FORM DETAILS & MAKING DETAILS VISIBLE
                 _event.FillEventDetails(txtEventID, txtDescription, dtpDate, dtpTime, nudAvailTix, nudChildTktPrice, nudAdultTktPrice);
                 Event.aVenue.FillVenueDetails(txtVenueID, txtVdVenue, txtStreet1, txtStreet2, txtCity, txtEircode, txtCounty, txtMaxCap, txtContact, txtPhone, txtFee);
             }
+        }
+
+        private void btnUpdateEvent_Click(object sender, EventArgs e)
+        {
+            _event.AddEventDetails(txtEventID, txtTitle, txtDescription, dtpDate, dtpTime, nudAvailTix, nudChildTktPrice, nudAdultTktPrice);
+
+        }
+
+        private void frmUpdateEvent_ResetForm()
+        {
+
         }
     }
 }

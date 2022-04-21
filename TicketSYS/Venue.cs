@@ -73,11 +73,6 @@ namespace TicketSYS
         public char Status { get => _status; set => _status = value; }
 
 
-        public Boolean ValidateVenue()
-        {
-            return true;
-        }
-
         public void AddVenue()
         {
                 using (OracleConnection conn = new OracleConnection(DBConnect.getOradb()))
@@ -171,8 +166,6 @@ namespace TicketSYS
                 }
                 catch (OracleException e)
                 {
-                    // Throw method
-                    Debug.Write(e);
                 }
                 finally
                 {
@@ -264,7 +257,7 @@ namespace TicketSYS
 
         public void FillVenueDetails(TextBox txtVenueID, TextBox txtName, TextBox txtStreet1, TextBox txtStreet2, TextBox txtCity, TextBox txtCounty, TextBox txtEircode, TextBox txtCapacity, TextBox txtContact, TextBox txtPhone, TextBox txtFee)
         {
-            txtVenueID.Text = _id.ToString();
+            txtVenueID.Text = _id.ToString("000");
             txtName.Text = _name;
             txtCity.Text = _city;
             txtStreet1.Text = _address1;
@@ -279,7 +272,7 @@ namespace TicketSYS
 
         public void FillVenueDetails(TextBox txtVenueID, TextBox txtStreet1, TextBox txtStreet2, TextBox txtCity, TextBox txtCounty, TextBox txtEircode, TextBox txtCapacity, TextBox txtContact, TextBox txtPhone, TextBox txtFee)
         {
-            txtVenueID.Text = _id.ToString();
+            txtVenueID.Text = _id.ToString("000");
             txtCity.Text = _city;
             txtStreet1.Text = _address1;
             txtStreet2.Text = _address2;
@@ -293,7 +286,7 @@ namespace TicketSYS
 
         public void FillVenueDetails(TextBox txtVenueID, TextBox txtName,TextBox txtStreet1, TextBox txtStreet2, TextBox txtCity, ComboBox cboCounty, TextBox txtEircode, NumericUpDown nudCapacity, TextBox txtContact, TextBox txtPhone, NumericUpDown nudFee)
         {
-            txtVenueID.Text = _id.ToString();
+            txtVenueID.Text = _id.ToString("000");
             txtName.Text = _name;
             txtCity.Text = _city;
             txtStreet1.Text = _address1;
@@ -346,58 +339,5 @@ namespace TicketSYS
             combo.SelectedIndex = 0;
         }
 
-        public static void CboVenue_LoadFilter(ComboBox countys, ComboBox cities)
-        {
-            countys.Items.Clear();
-            cities.Items.Clear();
-
-            DataSet ds = Venue.GetVenues();
-
-            for (int i = 0; i < ds.Tables["VS"].Rows.Count; i++)
-                countys.Items.Add(ds.Tables[0].Rows[i][0].ToString());
-            countys.SelectedIndex = 0;
-
-            ds = Venue.GetVenues();
-
-            for (int i = 0; i < ds.Tables["VS"].Rows.Count; i++)
-                cities.Items.Add(ds.Tables[0].Rows[i][0].ToString());
-            cities.SelectedIndex = 0;
-        }
-
-        public void ChangeStatus(char status)
-        {
-            using (OracleConnection conn = new OracleConnection(DBConnect.getOradb()))
-            {
-                try
-                {
-                    // OPEN DB CONNECTION
-                    conn.Open();
-
-                    // DEFINE THE SQL STATEMENT
-                    String sqlInsert = "UPDATE VENUES SET STATUS = :STATUS WHERE VENUE_ID = :VENUE_ID";
-
-                    // PREPARE SQL STATEMENT
-                    OracleCommand command = new OracleCommand(sqlInsert, conn);
-
-                    command.Parameters.Add("STATUS", status);
-                    command.Parameters.Add("VENUE_ID", Id);
-
-                    command.Prepare();
-                    // EXECUTE SQL STATEMENT
-                    command.ExecuteNonQuery();
-                    // CLOSE CONNECTION
-                    conn.Close();
-                }
-                catch (OracleException e)
-                {
-                    string errorMessage = "Code: " + e.ErrorCode + "\n" +
-                           "Message: " + e.Message;
-                    System.Diagnostics.EventLog log = new System.Diagnostics.EventLog();
-                    log.Source = "My Application";
-                    log.WriteEntry(errorMessage);
-                    Console.WriteLine("AN ERROR HAS OCCURED WITH THE DATABASE CONNECTION");
-                }
-            }
-        }
     }
 }

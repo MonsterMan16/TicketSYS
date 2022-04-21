@@ -60,6 +60,7 @@ namespace TicketSYS
                 _aEvent.aVenue = new Venue();
                 _aEvent.aVenue.GetVenueDetails(Convert.ToInt32(cboVenue.SelectedItem.ToString().Substring(0, 3)));
                 _aEvent.aVenue.FillVenueDetails(txtVenueID, txtName, txtStreet1, txtStreet2, txtCity, txtCounty, txtEircode, txtMaxCap, txtContact, txtPhone, txtFee);
+                nudAvailTix.Maximum = _aEvent.aVenue.Capacity;
             }
         }
 
@@ -67,16 +68,20 @@ namespace TicketSYS
         {
             _aEvent.AddEventDetails(txtEventID, txtTitle, txtDesc, dtpDate, dtpTime, nudAvailTix, nudAdultTktPrice, nudChildTktPrice);
             _aEvent.AddEvent();
-            Utilities.ResetFormControls(this);
+            frmSchedule_SetValues();
         }
 
         private void frmScheduleEvent_Loader(object sender, EventArgs e)
         {
             Venue.CboVenue_LoadVenues(cboVenue);
-            txtEventID.Text = Event.GetNextEventID().ToString();
+            txtEventID.Text = Event.GetNextEventID().ToString("000");
+        }
 
-            
-            
+        private void frmSchedule_SetValues()
+        {
+            Utilities.ResetAllControls(grpScheduleEvent);
+            Venue.CboVenue_LoadVenues(cboVenue);
+            txtEventID.Text = Event.GetNextEventID().ToString("000");
         }
     }
 }

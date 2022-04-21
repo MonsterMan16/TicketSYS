@@ -39,7 +39,10 @@ namespace TicketSYS
             // SET VENUE DETAILS
             _aVenue.SetVenueDetails(txtName.Text, txtStreet1.Text, txtStreet2.Text, txtCity.Text, cboCounty.SelectedItem.ToString(), txtEircode.Text, Convert.ToInt32(nudCapacity.Value), txtPhone.Text, txtContact.Text, nudFee.Value);
             _aVenue.UpdateVenue();
-            frmUpdateVenue_ResetForm();
+
+            Utilities.ResetAllControls(grpVenue);
+            grpVenue.Visible = false;
+            Venue.CboVenue_LoadVenues(cboVenue);
         }
 
 

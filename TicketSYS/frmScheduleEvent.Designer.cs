@@ -154,7 +154,7 @@ namespace TicketSYS
             // dtpTime
             // 
             this.dtpTime.CustomFormat = "HH:mm";
-            this.dtpTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpTime.Format = DateTimePickerFormat.Custom;
             this.dtpTime.Location = new System.Drawing.Point(449, 654);
             this.dtpTime.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtpTime.MinDate = new System.DateTime(2021, 12, 17, 0, 0, 0, 0);

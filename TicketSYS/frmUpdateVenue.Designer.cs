@@ -119,7 +119,7 @@ namespace TicketSYS
             this.grpFilter.Size = new System.Drawing.Size(1012, 365);
             this.grpFilter.TabIndex = 56;
             this.grpFilter.TabStop = false;
-            this.grpFilter.Text = "Filter Ticket";
+            this.grpFilter.Text = "Filter Venue";
             // 
             // lblVenue
             // 
@@ -150,15 +150,14 @@ namespace TicketSYS
             // 
             // cboVenue
             // 
+            this.cboVenue.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.cboVenue.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.cboVenue.FormattingEnabled = true;
             this.cboVenue.Location = new System.Drawing.Point(384, 261);
             this.cboVenue.Name = "cboVenue";
             this.cboVenue.Size = new System.Drawing.Size(385, 56);
             this.cboVenue.TabIndex = 45;
             this.cboVenue.SelectedIndexChanged += new System.EventHandler(this.cboVenue_SelectedIndexChanged);
-
-            this.cboVenue.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            this.cboVenue.AutoCompleteSource = AutoCompleteSource.ListItems;
             // 
             // cboFtCity
             // 
@@ -396,8 +395,6 @@ namespace TicketSYS
             0,
             0,
             0});
-
-            this.nudCapacity.Controls.RemoveAt(0);
             // 
             // txtEircode
             // 

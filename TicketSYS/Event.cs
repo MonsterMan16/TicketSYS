@@ -17,6 +17,7 @@ namespace TicketSYS
         private int _availTix;
         private decimal _adultPrice;
         private decimal _childPrice;
+        private char _status;
 
         public Event()
         {
@@ -29,6 +30,7 @@ namespace TicketSYS
             _availTix = 0;
             _adultPrice = 0;
             _childPrice = 0;
+            _status = 'P';
         }
 
         public Event(int EventID)
@@ -39,12 +41,13 @@ namespace TicketSYS
         public int EventID { get => _id; set => _id = value; }
         public string EventTitle { get => _title; set => _title = value; }
         public string EventDescription { get => _description; set => _description = value; }
-        public decimal AdultTicketPrice { get => _adultPrice; set => _adultPrice = value; }
-        public decimal ChildTicketPrice { get => _childPrice; set => _childPrice = value; }
+        public decimal AdultPrice { get => _adultPrice; set => _adultPrice = value; }
+        public decimal ChildPrice { get => _childPrice; set => _childPrice = value; }
         public Venue aVenue { get => _aVenue; set => _aVenue = value; }
         public DateTime StartDate { get => _date; set => _date = value; }
         public DateTime StartTime { get => _time; set => _time = value; }
-        public int MaxTickets { get => _availTix; set => _availTix = value; }
+        public int AvailTix { get => _availTix; set => _availTix = value; }
+        public char Status { get => _status; set => _status = value; }
 
         public void AddEventDetails(TextBox txtEventID, TextBox txtTitle, TextBox txtDescription, DateTimePicker dtpDate, DateTimePicker dtpTime, NumericUpDown nudAvailTix, NumericUpDown nudChildPrice, NumericUpDown nudAdultPrice)
         {
@@ -82,7 +85,7 @@ namespace TicketSYS
 
 
                     // DEFINE THE SQL STATEMENT
-                    String sqlInsert = "INSERT INTO EVENTS(EVENT_ID,VENUE_ID,TITLE,DESCRIPTION,EVENT_DATE,SCHEDULE_TIME,MAX_TICKETS,ADULT_PRICE,CHILD_PRICE) VALUES(:EVENT_ID, :VENUE_ID, :TITLE, :DESCRIPTION, :EVENT_DATE, :SCHEDULE_TIME, :MAX_TICKETS, :ADULT_PRICE, :CHILD_PRICE)";
+                    String sqlInsert = "INSERT INTO EVENTS(EVENT_ID,VENUE_ID,TITLE,DESCRIPTION,EVENT_DATE,SCHEDULE_TIME,MAX_TICKETS,ADULT_PRICE,CHILD_PRICE,STATUS) VALUES(:EVENT_ID, :VENUE_ID, :TITLE, :DESCRIPTION, :EVENT_DATE, :SCHEDULE_TIME, :MAX_TICKETS, :ADULT_PRICE, :CHILD_PRICE, :STATUS)";
 
                     // PREPARE SQL STATEMENT
                     OracleCommand command = new OracleCommand(sqlInsert, conn);
@@ -91,11 +94,12 @@ namespace TicketSYS
                     command.Parameters.Add("VENUE_ID", aVenue.Id);
                     command.Parameters.Add("TITLE", _title);
                     command.Parameters.Add("DESCRIPTION", _description);
-                    command.Parameters.Add("EVENT_DATE", String.Format("{0:dd-MMM-yy}", _date));
-                    command.Parameters.Add("SCHEDULE_TIME", String.Format("{0:HH:mm}", StartTime));
-                    command.Parameters.Add("MAX_TICKETS", MaxTickets);
-                    command.Parameters.Add("ADULT_PRICE", AdultTicketPrice);
-                    command.Parameters.Add("CHILD_PRICE", ChildTicketPrice);
+                    command.Parameters.Add("EVENT_DATE", _date.ToString("dd-MMM-yy"));
+                    command.Parameters.Add("SCHEDULE_TIME", _time.ToString("HH:mm"));
+                    command.Parameters.Add("MAX_TICKETS", _availTix);
+                    command.Parameters.Add("ADULT_PRICE", _adultPrice);
+                    command.Parameters.Add("CHILD_PRICE", _childPrice);
+                    command.Parameters.Add("STATUS", _status);
                     command.Prepare();
                     // EXECUTE SQL STATEMENT
 
@@ -103,12 +107,73 @@ namespace TicketSYS
 
 
                 } catch(Exception e) {
+                    Debug.WriteLine(e.ToString());
                 }
                 finally
                 {
                     // CLOSE CONNECTION
                     conn.Close();
                 }
+            }
+        }
+
+        public void UpdateEvent(char status = 'P')
+        {
+            String sqlInsert = "";
+            using (OracleConnection conn = new OracleConnection(DBConnect.getOradb()))
+            {
+                try
+                {
+                    // OPEN DB CONNECTION
+                    conn.Open();
+
+
+
+                    // PREPARE SQL STATEMENT
+                    OracleCommand command;
+
+
+                    if (status == 'P')
+                    {
+                        sqlInsert = "UPDATE VENUES SET VENUE_ID = :VENUE_ID,TITLE = :TITLE,DESCRIPTION = :DESCRIPTION,EVENT_DATE = :EVENT_DATE,SCHEDULE_TIME = :SCHEDULE_TIME,AVAIL_TIX = :AVAIL_TIX,ADULT_PRICE = :ADULT_PRICE,CHILD_PRICE = :CHILD_PRICE";
+
+                        command = new OracleCommand(sqlInsert, conn);
+
+                        command.Parameters.Add("VENUE_ID", _aVenue.Id);
+                        command.Parameters.Add("NAME", _title);
+                        command.Parameters.Add("ADDRESS1", _description);
+                        command.Parameters.Add("ADDRESS2", _date);
+                        command.Parameters.Add("CITY", _time);
+                        command.Parameters.Add("EIRCODE", _availTix);
+                        command.Parameters.Add("COUNTY", _adultPrice);
+                        command.Parameters.Add("CAPACITY", _childPrice);
+                        command.Parameters.Add("EVENT_ID", _id);
+                    }
+                    else
+                    {
+                        sqlInsert = "UPDATE EVENTS SET STATUS = :STATUS WHERE EVENT_ID = :EVENT_ID";
+
+                        command = new OracleCommand(sqlInsert, conn);
+
+                        command.Parameters.Add("STATUS", status);
+                        command.Parameters.Add("VENUE_ID", _id);
+                    }
+
+                    command.Connection = conn;
+
+                    command.Prepare();
+                    // EXECUTE SQL STATEMENT
+                    command.ExecuteNonQuery();
+                }
+                catch (OracleException e)
+                {
+                }
+                finally
+                {
+                    // CLOSE CONNECTION
+                    conn.Close();
+                }
+
             }
         }
 
@@ -156,7 +221,7 @@ namespace TicketSYS
             using (OracleConnection conn = new OracleConnection(DBConnect.getOradb()))
             {
                 // DEFINE SQL STATEMENT
-                String sqlQuery = "SELECT EVENT_ID, VENUE_ID, TITLE, DESCRIPTION , START_TIME, END_TIME, MAX_TICKETS, ADULT_PRICE, CHILD_PRICE FROM EVENTS WHERE EVENT_ID = :EVENT_ID";
+                String sqlQuery = "SELECT EVENT_ID, VENUE_ID, TITLE, DESCRIPTION , EVENT_DATE, SCHEDULE_TIME, MAX_TICKETS, ADULT_PRICE, CHILD_PRICE FROM EVENTS WHERE EVENT_ID = :EVENT_ID";
                 // PREPARE SQL STATEMENT
                 OracleCommand command = new OracleCommand(sqlQuery, conn);
                 // OPEN DB CONNECTION
@@ -171,15 +236,17 @@ namespace TicketSYS
                 {
                     while (reader.Read())
                     {
-                        EventID = reader.GetInt32("EVENT_ID");
-                        aVenue.GetVenueDetails(reader.GetInt32("VENUE_ID"));
-                        EventTitle = reader.GetString("TITLE");
-                        EventDescription = reader.GetString("DESCRIPTION");
-                        StartDate = reader.GetDateTime("START_DATE");
-                        StartTime = reader.GetDateTime("START_TIME");
-                        MaxTickets = reader.GetInt32("MAX_TICKETS");
-                        AdultTicketPrice = reader.GetDecimal("ADULT_PRICE");
-                        ChildTicketPrice = reader.GetDecimal("CHILD_PRICE");
+                        _id = reader.GetInt32("EVENT_ID");
+                        _aVenue = new Venue();
+                        _aVenue.GetVenueDetails(reader.GetInt32("VENUE_ID"));
+                        Debug.WriteLine(reader.GetInt32("VENUE_ID"));
+                        _title = reader.GetString("TITLE");
+                        _description = reader.GetString("DESCRIPTION");
+                        _date = reader.GetDateTime("EVENT_DATE");
+                        _time = DateTime.ParseExact(reader.GetString("SCHEDULE_TIME"), "HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+                        _availTix = reader.GetInt32("MAX_TICKETS");
+                        _adultPrice = reader.GetDecimal("ADULT_PRICE");
+                        _childPrice = reader.GetDecimal("CHILD_PRICE");
                     }
                 }
                 finally
@@ -191,24 +258,24 @@ namespace TicketSYS
 
         public void FillEventDetails(TextBox txtEventID, TextBox txtEventTitle, TextBox txtDescription, DateTimePicker dtpStartDate, DateTimePicker dtpStartTime, NumericUpDown nudAvailableTickets, NumericUpDown nudChildTktPrice, NumericUpDown nudAdultTicketPrice)
         {
-            txtEventID.Text = _id.ToString();
+            txtEventID.Text = _id.ToString("000");
             txtEventTitle.Text = _title;
             txtDescription.Text = _description;
             dtpStartDate.Value = _date;
             dtpStartTime.Value = _time;
             nudAvailableTickets.Value = _availTix;
-            nudChildTktPrice.Value = Convert.ToDecimal(ChildTicketPrice);
+            nudChildTktPrice.Value = Convert.ToDecimal(ChildPrice);
             nudAdultTicketPrice.Value = _adultPrice;
         }
 
         public void FillEventDetails(TextBox txtEventID, TextBox txtDescription, DateTimePicker dtpStartDate, DateTimePicker dtpStartTime, NumericUpDown nudAvailableTickets, NumericUpDown nudChildTktPrice, NumericUpDown nudAdultTicketPrice)
         {
-            txtEventID.Text = _id.ToString();
+            txtEventID.Text = _id.ToString("000");
             txtDescription.Text = _description;
             dtpStartDate.Value = _date.Date;
             dtpStartTime.Value = _time;
             nudAvailableTickets.Value = _availTix;
-            nudChildTktPrice.Value = Convert.ToDecimal(ChildTicketPrice);
+            nudChildTktPrice.Value = Convert.ToDecimal(ChildPrice);
             nudAdultTicketPrice.Value = _adultPrice;
         }
 
@@ -223,13 +290,6 @@ namespace TicketSYS
                 combo.Items.Add(ds.Tables[0].Rows[i][0].ToString().PadLeft(3, '0') + " " +
                 ds.Tables[0].Rows[i][1].ToString());
             combo.SelectedIndex = 0;
-        }
-
-        public static void Event_DateTimePickerProperies(DateTimePicker dtpDate, DateTimePicker dtpTime)
-        {
-            dtpTime.Format = DateTimePickerFormat.Custom;
-            dtpTime.CustomFormat = "HH:mm";
-            dtpTime.ShowUpDown = false;
         }
     }
 }

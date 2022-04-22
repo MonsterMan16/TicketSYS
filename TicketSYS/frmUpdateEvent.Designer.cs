@@ -117,11 +117,8 @@ namespace TicketSYS
             // 
             // grpUpdateEvent
             // 
-            this.grpUpdateEvent.Controls.Add(this.txtPhone);
             this.grpUpdateEvent.Controls.Add(this.grpFilterEvent);
-            this.grpUpdateEvent.Controls.Add(this.label1);
             this.grpUpdateEvent.Controls.Add(this.grpEventDetails);
-            this.grpUpdateEvent.Controls.Add(this.txtContact);
             this.grpUpdateEvent.Controls.Add(this.grpVenueDetails);
             this.grpUpdateEvent.Location = new System.Drawing.Point(35, 72);
             this.grpUpdateEvent.Margin = new System.Windows.Forms.Padding(2);
@@ -136,7 +133,7 @@ namespace TicketSYS
             // 
             this.txtPhone.BackColor = System.Drawing.Color.Black;
             this.txtPhone.ForeColor = System.Drawing.Color.White;
-            this.txtPhone.Location = new System.Drawing.Point(1199, 723);
+            this.txtPhone.Location = new System.Drawing.Point(327, 657);
             this.txtPhone.Margin = new System.Windows.Forms.Padding(2);
             this.txtPhone.Name = "txtPhone";
             this.txtPhone.ReadOnly = true;
@@ -243,7 +240,7 @@ namespace TicketSYS
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1036, 729);
+            this.label1.Location = new System.Drawing.Point(174, 663);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(98, 37);
@@ -348,10 +345,11 @@ namespace TicketSYS
             // dtpTime
             // 
             this.dtpTime.CustomFormat = "HH:mm";
-            this.dtpTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpTime.Location = new System.Drawing.Point(334, 427);
             this.dtpTime.MinDate = new System.DateTime(1999, 12, 17, 0, 0, 0, 0);
             this.dtpTime.Name = "dtpTime";
+            this.dtpTime.ShowUpDown = true;
             this.dtpTime.Size = new System.Drawing.Size(181, 43);
             this.dtpTime.TabIndex = 45;
             this.dtpTime.Value = new System.DateTime(2021, 12, 18, 7, 26, 12, 405);
@@ -490,7 +488,7 @@ namespace TicketSYS
             // 
             this.txtContact.BackColor = System.Drawing.Color.Black;
             this.txtContact.ForeColor = System.Drawing.Color.White;
-            this.txtContact.Location = new System.Drawing.Point(1199, 657);
+            this.txtContact.Location = new System.Drawing.Point(327, 594);
             this.txtContact.Margin = new System.Windows.Forms.Padding(2);
             this.txtContact.Name = "txtContact";
             this.txtContact.ReadOnly = true;
@@ -499,10 +497,13 @@ namespace TicketSYS
             // 
             // grpVenueDetails
             // 
+            this.grpVenueDetails.Controls.Add(this.txtPhone);
             this.grpVenueDetails.Controls.Add(this.txtCounty);
             this.grpVenueDetails.Controls.Add(this.lblCounty);
+            this.grpVenueDetails.Controls.Add(this.label1);
             this.grpVenueDetails.Controls.Add(this.lblStreet2);
             this.grpVenueDetails.Controls.Add(this.txtStreet2);
+            this.grpVenueDetails.Controls.Add(this.txtContact);
             this.grpVenueDetails.Controls.Add(this.txtVdVenue);
             this.grpVenueDetails.Controls.Add(this.txtEircode);
             this.grpVenueDetails.Controls.Add(this.lblContact);
@@ -520,7 +521,7 @@ namespace TicketSYS
             this.grpVenueDetails.Controls.Add(this.lblCity);
             this.grpVenueDetails.Location = new System.Drawing.Point(873, 66);
             this.grpVenueDetails.Name = "grpVenueDetails";
-            this.grpVenueDetails.Size = new System.Drawing.Size(786, 799);
+            this.grpVenueDetails.Size = new System.Drawing.Size(786, 785);
             this.grpVenueDetails.TabIndex = 15;
             this.grpVenueDetails.TabStop = false;
             this.grpVenueDetails.Text = "Venue Details";
@@ -592,7 +593,7 @@ namespace TicketSYS
             // lblContact
             // 
             this.lblContact.AutoSize = true;
-            this.lblContact.Location = new System.Drawing.Point(164, 597);
+            this.lblContact.Location = new System.Drawing.Point(157, 600);
             this.lblContact.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblContact.Name = "lblContact";
             this.lblContact.Size = new System.Drawing.Size(115, 37);
@@ -603,7 +604,7 @@ namespace TicketSYS
             // 
             this.txtFee.BackColor = System.Drawing.Color.Black;
             this.txtFee.ForeColor = System.Drawing.Color.White;
-            this.txtFee.Location = new System.Drawing.Point(328, 727);
+            this.txtFee.Location = new System.Drawing.Point(327, 718);
             this.txtFee.Margin = new System.Windows.Forms.Padding(2);
             this.txtFee.Name = "txtFee";
             this.txtFee.ReadOnly = true;
@@ -623,7 +624,7 @@ namespace TicketSYS
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(197, 733);
+            this.label2.Location = new System.Drawing.Point(203, 724);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(64, 37);
@@ -740,7 +741,6 @@ namespace TicketSYS
             this.mnuMainMenu.ResumeLayout(false);
             this.mnuMainMenu.PerformLayout();
             this.grpUpdateEvent.ResumeLayout(false);
-            this.grpUpdateEvent.PerformLayout();
             this.grpFilterEvent.ResumeLayout(false);
             this.grpFilterEvent.PerformLayout();
             this.grpEventDetails.ResumeLayout(false);

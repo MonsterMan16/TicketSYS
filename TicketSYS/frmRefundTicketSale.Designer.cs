@@ -296,7 +296,6 @@ namespace TicketSYS
             this.lblDescription.Size = new System.Drawing.Size(230, 37);
             this.lblDescription.TabIndex = 59;
             this.lblDescription.Text = "Event Description:";
-            this.lblDescription.Click += new System.EventHandler(this.lblDescription_Click);
             // 
             // dtpTime
             // 
@@ -353,7 +352,6 @@ namespace TicketSYS
             this.txtDescription.ReadOnly = true;
             this.txtDescription.Size = new System.Drawing.Size(445, 43);
             this.txtDescription.TabIndex = 60;
-            this.txtDescription.TextChanged += new System.EventHandler(this.txtDescription_TextChanged);
             // 
             // txtAdultTktPrice
             // 
@@ -407,7 +405,6 @@ namespace TicketSYS
             this.lblAdultTktPrice.Size = new System.Drawing.Size(227, 37);
             this.lblAdultTktPrice.TabIndex = 30;
             this.lblAdultTktPrice.Text = "Adult Ticket Price:";
-            this.lblAdultTktPrice.Click += new System.EventHandler(this.lblAdultTktPrice_Click);
             // 
             // lblChildTktPrice
             // 
@@ -484,20 +481,14 @@ namespace TicketSYS
             this.btnFilter.TabIndex = 45;
             this.btnFilter.Text = "Filter Tickets";
             this.btnFilter.UseVisualStyleBackColor = false;
-            this.btnFilter.Click += new System.EventHandler(this.button1_Click);
             // 
             // cboVenue
             // 
             this.cboVenue.FormattingEnabled = true;
-            this.cboVenue.Items.AddRange(new object[] {
-            "",
-            "1 | 3Arena",
-            "2 | Aviva Stadium"});
             this.cboVenue.Location = new System.Drawing.Point(275, 76);
             this.cboVenue.Name = "cboVenue";
             this.cboVenue.Size = new System.Drawing.Size(445, 45);
             this.cboVenue.TabIndex = 44;
-            this.cboVenue.SelectedIndexChanged += new System.EventHandler(this.cboVenue_SelectedIndexChanged);
             // 
             // lblFtVenue
             // 
@@ -527,7 +518,6 @@ namespace TicketSYS
             this.cboEvent.Name = "cboEvent";
             this.cboEvent.Size = new System.Drawing.Size(267, 45);
             this.cboEvent.TabIndex = 20;
-            this.cboEvent.SelectedIndexChanged += new System.EventHandler(this.cboEvent_SelectedIndexChanged);
             // 
             // grpRefundTicketSale
             // 
@@ -590,7 +580,6 @@ namespace TicketSYS
             this.cboTicketID.Name = "cboTicketID";
             this.cboTicketID.Size = new System.Drawing.Size(267, 45);
             this.cboTicketID.TabIndex = 53;
-            this.cboTicketID.SelectedIndexChanged += new System.EventHandler(this.cboTicketID_SelectedIndexChanged);
             // 
             // lblTicketID
             // 
@@ -623,7 +612,6 @@ namespace TicketSYS
             this.lblEventDetails.Size = new System.Drawing.Size(176, 37);
             this.lblEventDetails.TabIndex = 51;
             this.lblEventDetails.Text = "Event Details:";
-            this.lblEventDetails.Click += new System.EventHandler(this.lblEventDetails_Click);
             // 
             // chkVDetails
             // 
@@ -751,7 +739,6 @@ namespace TicketSYS
             this.btnRefundSale.TabIndex = 14;
             this.btnRefundSale.Text = "Refund Sale";
             this.btnRefundSale.UseVisualStyleBackColor = true;
-            this.btnRefundSale.Click += new System.EventHandler(this.btnRefundSale_Click);
             // 
             // lblFirstName
             // 
@@ -799,7 +786,6 @@ namespace TicketSYS
             this.Name = "frmRefundTicketSale";
             this.Text = "Refund Ticket Sale";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmDeleteSale_FormClosed);
-            this.Load += new System.EventHandler(this.frmDeleteSale_Load);
             this.mnuMainMenu.ResumeLayout(false);
             this.mnuMainMenu.PerformLayout();
             this.grpVDetails.ResumeLayout(false);

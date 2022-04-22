@@ -13,8 +13,6 @@ namespace TicketSYS
         frmMainMenu parent;
         Event _event;
 
-        internal Event Event { get => _event; set => _event = value; }
-
         public frmUpdateEvent(frmMainMenu parent)
         {
             InitializeComponent();
@@ -29,7 +27,6 @@ namespace TicketSYS
 
         private void frmUpdateEvent_Load(object sender, EventArgs e)
         {
-            txtEventID.Text = Event.GetNextEventID().ToString("000");
             Event.CboEvent_LoadEvents(cboEvent);
             Venue.CboVenue_LoadVenues(cboVenue);
         }
@@ -66,20 +63,15 @@ namespace TicketSYS
                 // GET VENUE DETAILS FROM DATABASE
                 _event.GetEventDetails();
                 // FILL FORM DETAILS & MAKING DETAILS VISIBLE
-                _event.FillEventDetails(txtEventID, txtDescription, dtpDate, dtpTime, nudAvailTix, nudChildTktPrice, nudAdultTktPrice);
-                Event.aVenue.FillVenueDetails(txtVenueID, txtVdVenue, txtStreet1, txtStreet2, txtCity, txtEircode, txtCounty, txtMaxCap, txtContact, txtPhone, txtFee);
+                _event.FillEventDetails(txtEventID, txtTitle, txtDescription, cboVenue, dtpDate, dtpTime, nudAvailTix, nudChildTktPrice, nudAdultTktPrice);
+                _event.aVenue.FillVenueDetails(txtVenueID, txtVdVenue, txtStreet1, txtStreet2, txtCity, txtEircode, txtCounty, txtMaxCap, txtContact, txtPhone, txtFee);
             }
         }
 
         private void btnUpdateEvent_Click(object sender, EventArgs e)
         {
             _event.AddEventDetails(txtEventID, txtTitle, txtDescription, dtpDate, dtpTime, nudAvailTix, nudChildTktPrice, nudAdultTktPrice);
-
-        }
-
-        private void frmUpdateEvent_ResetForm()
-        {
-
+            _event.UpdateEvent();
         }
     }
 }

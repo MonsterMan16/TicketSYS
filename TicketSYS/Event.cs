@@ -14,7 +14,7 @@ namespace TicketSYS
         private string _description;
         private DateTime _date;
         private DateTime _time;
-        private int _availTix;
+        private int _maxTix;
         private decimal _adultPrice;
         private decimal _childPrice;
         private char _status;
@@ -27,7 +27,7 @@ namespace TicketSYS
             _description = "";
             _date = DateTime.Now;
             _time = DateTime.Now;
-            _availTix = 0;
+            _maxTix = 0;
             _adultPrice = 0;
             _childPrice = 0;
             _status = 'P';
@@ -35,19 +35,14 @@ namespace TicketSYS
 
         public Event(int EventID)
         {
-            this.EventID = EventID;
+            this._id = EventID;
         }
 
         public int EventID { get => _id; set => _id = value; }
-        public string EventTitle { get => _title; set => _title = value; }
-        public string EventDescription { get => _description; set => _description = value; }
+
+        public Venue aVenue { get => _aVenue; set => _aVenue = value; }
         public decimal AdultPrice { get => _adultPrice; set => _adultPrice = value; }
         public decimal ChildPrice { get => _childPrice; set => _childPrice = value; }
-        public Venue aVenue { get => _aVenue; set => _aVenue = value; }
-        public DateTime StartDate { get => _date; set => _date = value; }
-        public DateTime StartTime { get => _time; set => _time = value; }
-        public int AvailTix { get => _availTix; set => _availTix = value; }
-        public char Status { get => _status; set => _status = value; }
 
         public void AddEventDetails(TextBox txtEventID, TextBox txtTitle, TextBox txtDescription, DateTimePicker dtpDate, DateTimePicker dtpTime, NumericUpDown nudAvailTix, NumericUpDown nudChildPrice, NumericUpDown nudAdultPrice)
         {
@@ -56,7 +51,7 @@ namespace TicketSYS
             _description = txtDescription.Text;
             _date = dtpDate.Value;
             _time = dtpTime.Value;
-            _availTix = Convert.ToInt32(nudAvailTix.Value);
+            _maxTix = Convert.ToInt32(nudAvailTix.Value);
             _adultPrice = nudAdultPrice.Value;
             _childPrice = nudChildPrice.Value;
         }
@@ -91,12 +86,12 @@ namespace TicketSYS
                     OracleCommand command = new OracleCommand(sqlInsert, conn);
 
                     command.Parameters.Add("EVENT_ID", _id);
-                    command.Parameters.Add("VENUE_ID", aVenue.Id);
+                    command.Parameters.Add("VENUE_ID", _aVenue.Id);
                     command.Parameters.Add("TITLE", _title);
                     command.Parameters.Add("DESCRIPTION", _description);
                     command.Parameters.Add("EVENT_DATE", _date.ToString("dd-MMM-yy"));
                     command.Parameters.Add("SCHEDULE_TIME", _time.ToString("HH:mm"));
-                    command.Parameters.Add("MAX_TICKETS", _availTix);
+                    command.Parameters.Add("MAX_TICKETS", _maxTix);
                     command.Parameters.Add("ADULT_PRICE", _adultPrice);
                     command.Parameters.Add("CHILD_PRICE", _childPrice);
                     command.Parameters.Add("STATUS", _status);
@@ -119,7 +114,7 @@ namespace TicketSYS
 
         public void UpdateEvent(char status = 'P')
         {
-            String sqlInsert = "";
+            String sqlInsert;
             using (OracleConnection conn = new OracleConnection(DBConnect.getOradb()))
             {
                 try
@@ -135,19 +130,17 @@ namespace TicketSYS
 
                     if (status == 'P')
                     {
-                        sqlInsert = "UPDATE VENUES SET VENUE_ID = :VENUE_ID,TITLE = :TITLE,DESCRIPTION = :DESCRIPTION,EVENT_DATE = :EVENT_DATE,SCHEDULE_TIME = :SCHEDULE_TIME,AVAIL_TIX = :AVAIL_TIX,ADULT_PRICE = :ADULT_PRICE,CHILD_PRICE = :CHILD_PRICE";
+                        sqlInsert = "UPDATE EVENTS SET TITLE = :TITLE,DESCRIPTION = :DESCRIPTION,EVENT_DATE = :EVENT_DATE,SCHEDULE_TIME = :SCHEDULE_TIME,MAX_TICKETS = :AVAIL_TIX,ADULT_PRICE = :ADULT_PRICE,CHILD_PRICE = :CHILD_PRICE";
 
                         command = new OracleCommand(sqlInsert, conn);
 
-                        command.Parameters.Add("VENUE_ID", _aVenue.Id);
-                        command.Parameters.Add("NAME", _title);
-                        command.Parameters.Add("ADDRESS1", _description);
-                        command.Parameters.Add("ADDRESS2", _date);
-                        command.Parameters.Add("CITY", _time);
-                        command.Parameters.Add("EIRCODE", _availTix);
-                        command.Parameters.Add("COUNTY", _adultPrice);
-                        command.Parameters.Add("CAPACITY", _childPrice);
-                        command.Parameters.Add("EVENT_ID", _id);
+                        command.Parameters.Add("TITLE", _title);
+                        command.Parameters.Add("DESCRIPTION", _description);
+                        command.Parameters.Add("EVENT_DATE", _date.ToString("dd-MMM-yy"));
+                        command.Parameters.Add("SCHEDULE_TIME", _time.ToString("HH:mm"));
+                        command.Parameters.Add("MAX_TICKETS", _maxTix);
+                        command.Parameters.Add("ADULT_PRICE", _adultPrice);
+                        command.Parameters.Add("CHILD_PRICE", _childPrice);
                     }
                     else
                     {
@@ -156,7 +149,7 @@ namespace TicketSYS
                         command = new OracleCommand(sqlInsert, conn);
 
                         command.Parameters.Add("STATUS", status);
-                        command.Parameters.Add("VENUE_ID", _id);
+                        command.Parameters.Add("EVENT_ID", _id);
                     }
 
                     command.Connection = conn;
@@ -201,11 +194,6 @@ namespace TicketSYS
                 }
                 catch (OracleException e)
                 {
-                    string errorMessage = "Code: " + e.ErrorCode + "\n" +
-                           "Message: " + e.Message;
-                    System.Diagnostics.EventLog log = new System.Diagnostics.EventLog();
-                    log.Source = "My Application";
-                    log.WriteEntry(errorMessage);
                 }
                 finally
                 {
@@ -226,7 +214,7 @@ namespace TicketSYS
                 OracleCommand command = new OracleCommand(sqlQuery, conn);
                 // OPEN DB CONNECTION
                 conn.Open();
-                command.Parameters.Add("EVENT_ID", EventID);
+                command.Parameters.Add("EVENT_ID", _id);
                 command.Prepare();
 
                 OracleDataReader reader = command.ExecuteReader();
@@ -239,12 +227,11 @@ namespace TicketSYS
                         _id = reader.GetInt32("EVENT_ID");
                         _aVenue = new Venue();
                         _aVenue.GetVenueDetails(reader.GetInt32("VENUE_ID"));
-                        Debug.WriteLine(reader.GetInt32("VENUE_ID"));
                         _title = reader.GetString("TITLE");
                         _description = reader.GetString("DESCRIPTION");
                         _date = reader.GetDateTime("EVENT_DATE");
                         _time = DateTime.ParseExact(reader.GetString("SCHEDULE_TIME"), "HH:mm", System.Globalization.CultureInfo.InvariantCulture);
-                        _availTix = reader.GetInt32("MAX_TICKETS");
+                        _maxTix = reader.GetInt32("MAX_TICKETS");
                         _adultPrice = reader.GetDecimal("ADULT_PRICE");
                         _childPrice = reader.GetDecimal("CHILD_PRICE");
                     }
@@ -256,29 +243,30 @@ namespace TicketSYS
             }
         }
 
-        public void FillEventDetails(TextBox txtEventID, TextBox txtEventTitle, TextBox txtDescription, DateTimePicker dtpStartDate, DateTimePicker dtpStartTime, NumericUpDown nudAvailableTickets, NumericUpDown nudChildTktPrice, NumericUpDown nudAdultTicketPrice)
+        public void FillEventDetails(TextBox txtEventID, TextBox txtEventTitle, TextBox txtDescription, ComboBox cboVenue, DateTimePicker dtpStartDate, DateTimePicker dtpStartTime, NumericUpDown nudAvailableTickets, NumericUpDown nudChildTktPrice, NumericUpDown nudAdultTicketPrice)
         {
             txtEventID.Text = _id.ToString("000");
             txtEventTitle.Text = _title;
             txtDescription.Text = _description;
+            cboVenue.SelectedIndex = cboVenue.Items.IndexOf(_aVenue.Id.ToString("000") + " " + (_aVenue.Name));
             dtpStartDate.Value = _date;
             dtpStartTime.Value = _time;
-            nudAvailableTickets.Value = _availTix;
-            nudChildTktPrice.Value = Convert.ToDecimal(ChildPrice);
+            nudAvailableTickets.Value = _maxTix;
+            nudChildTktPrice.Value = _childPrice;
             nudAdultTicketPrice.Value = _adultPrice;
         }
 
-        public void FillEventDetails(TextBox txtEventID, TextBox txtDescription, DateTimePicker dtpStartDate, DateTimePicker dtpStartTime, NumericUpDown nudAvailableTickets, NumericUpDown nudChildTktPrice, NumericUpDown nudAdultTicketPrice)
+        public void FillEventDetails(TextBox txtEventID, TextBox txtEventTitle, TextBox txtDescription, TextBox txtDate, TextBox txtTime, TextBox txtAvailableTickets, TextBox txtChildPrice, TextBox txtAdultPrice)
         {
             txtEventID.Text = _id.ToString("000");
+            txtEventTitle.Text = _title;
             txtDescription.Text = _description;
-            dtpStartDate.Value = _date.Date;
-            dtpStartTime.Value = _time;
-            nudAvailableTickets.Value = _availTix;
-            nudChildTktPrice.Value = Convert.ToDecimal(ChildPrice);
-            nudAdultTicketPrice.Value = _adultPrice;
+            txtDate.Text = _date.ToString("dd/MM/yy");
+            txtTime.Text = _time.ToString("HH:mm");
+            txtAvailableTickets.Text = _maxTix.ToString();
+            txtChildPrice.Text = Utilities.CURRENCY + _childPrice.ToString();
+            txtAdultPrice.Text = Utilities.CURRENCY + _adultPrice.ToString();
         }
-
 
         public static void CboEvent_LoadEvents(ComboBox combo)
         {

@@ -11,6 +11,8 @@ namespace TicketSYS
     public partial class frmProcessTicketSale : Form
     {
         frmMainMenu parent;
+
+        Sale _aSale = new Sale();
         public frmProcessTicketSale(frmMainMenu Parent)
         {
             InitializeComponent();
@@ -25,17 +27,8 @@ namespace TicketSYS
 
         private void frmCreateSale_Load(object sender, EventArgs e)
         {
-            cboVenue.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
-            cboVenue.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cboVenue.AutoCompleteSource = AutoCompleteSource.ListItems;
-            cboEvent.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
-            cboEvent.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cboEvent.AutoCompleteSource = AutoCompleteSource.ListItems;
-            dtpDate.Format = DateTimePickerFormat.Custom;
-            dtpDate.CustomFormat = "dd/MM/yy";
-            dtpTime.Format = DateTimePickerFormat.Time;
-            dtpTime.ShowUpDown = true;
-            nudTotal.Controls.RemoveAt(0);
+            Venue.CboVenue_LoadVenues(cboVenue);
+            Event.CboEvent_LoadEvents(cboEvent);
         }
 
 
@@ -52,11 +45,9 @@ namespace TicketSYS
         {
             if (chkVDetails.Checked == true)
             {
-                grpVDetails.Visible = true;
             }
             else if (chkVDetails.Checked == false)
             {
-                grpVDetails.Visible = false;
             }
 
             if (!chkEDetails.Checked & !chkVDetails.Checked)
@@ -67,11 +58,6 @@ namespace TicketSYS
             {
                 Size = new Size(1549, 1202);
             }
-        }
-
-        private void cboVenue_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cboEvent.Items.Clear();
         }
 
         private void chkEDetails_CheckedChanged(object sender, EventArgs e)
@@ -92,6 +78,36 @@ namespace TicketSYS
             {
                 Size = new Size(1549, 1202);
             }
+        }
+
+        private void cboEvent_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cboEvent.SelectedItem.ToString() != "")
+            {
+                _aSale = new Sale();
+                _aSale.aEvent.EventID = Convert.ToInt32(cboEvent.SelectedItem.ToString().Substring(0, 3));
+                _aSale.aEvent.GetEventDetails();
+                _aSale.aEvent.FillEventDetails(txtEventID, txtTitle, txtDescription, txtDate, txtTime, txtMaxTix, txtChildPrice, txtAdultPrice);
+                _aSale.aEvent.aVenue.FillVenueDetails(txtVenueID, txtVdVenue, txtStreet1, txtStreet2, txtCity, txtEircode, txtCounty, txtMaxCap, txtContact, txtPhone, txtFee);
+                txtSaleID.Text = _aSale.GetNextSaleID().ToString("000");
+            }
+        }
+
+        private void btnCreateSale_Click(object sender, EventArgs e)
+        {
+            _aSale.AddSaleDetails(txtSaleID, txtFirstName, txtLastName, txtEmail, txtPhone, nudAdultQty, nudChildQty, txtTotal);
+            _aSale.AddSale();
+            Utilities.ResetAllControls(this);
+        }
+
+        private void nudAdultQty_ValueChanged(object sender, EventArgs e)
+        {
+            txtTotal.Text = "€" + _aSale.CalculateTotal(nudAdultQty, nudChildQty).ToString();
+        }
+
+        private void nudChildQty_ValueChanged(object sender, EventArgs e)
+        {
+            txtTotal.Text = "€" + _aSale.CalculateTotal(nudAdultQty, nudChildQty).ToString();
         }
     }
 }

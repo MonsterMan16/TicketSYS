@@ -267,7 +267,7 @@ namespace TicketSYS
             txtCapacity.Text = _capacity.ToString();
             txtContact.Text = _contact;
             txtPhone.Text = _phone;
-            txtFee.Text = _fee.ToString();
+            txtFee.Text = _fee.ToString() + '%';
         }
 
         public void FillVenueDetails(TextBox txtVenueID, TextBox txtStreet1, TextBox txtStreet2, TextBox txtCity, TextBox txtCounty, TextBox txtEircode, TextBox txtCapacity, TextBox txtContact, TextBox txtPhone, TextBox txtFee)
@@ -281,7 +281,7 @@ namespace TicketSYS
             txtCapacity.Text = _capacity.ToString();
             txtContact.Text = _contact;
             txtPhone.Text = _phone;
-            txtFee.Text = _fee.ToString();
+            txtFee.Text = _fee.ToString() + '%';
         }
 
         public void FillVenueDetails(TextBox txtVenueID, TextBox txtName,TextBox txtStreet1, TextBox txtStreet2, TextBox txtCity, ComboBox cboCounty, TextBox txtEircode, NumericUpDown nudCapacity, TextBox txtContact, TextBox txtPhone, NumericUpDown nudFee)
@@ -296,7 +296,7 @@ namespace TicketSYS
             nudCapacity.Value = _capacity;
             txtPhone.Text = _phone;
             txtContact.Text = _contact;  
-            nudFee.Value = _fee;
+            nudFee.Value = _fee + '%';
         }
 
 

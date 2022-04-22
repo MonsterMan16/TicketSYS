@@ -8,6 +8,7 @@ namespace TicketSYS
 {
     internal class Utilities
     {
+        public const char CURRENCY = '€';
         public static void ResetAllControls(Control form)
         {
             foreach (Control control in form.Controls)
